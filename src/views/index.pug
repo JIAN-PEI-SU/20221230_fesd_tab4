@@ -8,6 +8,40 @@ html(lang="en")
     link(rel="stylesheet", href=`./css/index.css`)
 
   body
+    -
+      const contentData = [
+        {
+          state:'active',
+          page: '1',
+          target: 'button1',
+          content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam accusamus esse id, repudiandae iste adipisci commodi? Nesciunt, veniam sunt voluptas eos dignissimos corporis, itaque omnis beatae ad cum fuga sint.',
+        },
+        {
+          page: '2',
+          target: 'button2',
+          content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam accusamus esse id, repudiandae iste adipisci commodi? Nesciunt, veniam sunt voluptas eos dignissimos corporis, itaque omnis beatae ad cum fuga sint.',
+        },
+        {
+          page: '3',
+          target: 'button3',
+          content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam accusamus esse id, repudiandae iste adipisci commodi? Nesciunt, veniam sunt voluptas eos dignissimos corporis, itaque omnis beatae ad cum fuga sint.',
+        },
+        {
+          page: '4',
+          target: 'button4',
+          content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam accusamus esse id, repudiandae iste adipisci commodi? Nesciunt, veniam sunt voluptas eos dignissimos corporis, itaque omnis beatae ad cum fuga sint.',
+        },
+        {
+          page: '5',
+          target: 'button5',
+          content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam accusamus esse id, repudiandae iste adipisci commodi? Nesciunt, veniam sunt voluptas eos dignissimos corporis, itaque omnis beatae ad cum fuga sint.',
+        },
+        {
+          page: '6',
+          target: 'button6',
+          content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam accusamus esse id, repudiandae iste adipisci commodi? Nesciunt, veniam sunt voluptas eos dignissimos corporis, itaque omnis beatae ad cum fuga sint.',
+        },
+      ]
     main
       nav.navbar
         .container
@@ -59,6 +93,35 @@ html(lang="en")
                   a(href="javascript:;") 類別按鈕 12
                 .item
                   a(href="javascript:;") 類別按鈕 13
+      section.sectionNew 
+        .container
+          h3 頁籤
+          .tab-box
+            tab-box(data-change-parent) 
+              .tab-title
+                .item.active(data-change-id='1')
+                  span button1
+                .item(data-change-id='2')
+                  span button2
+                .item(data-change-id='3')
+                  span button3
+                .item(data-change-id='4')
+                  span button4
+                .item(data-change-id='5')
+                  span button5
+                .item(data-change-id='6')
+                  span button6
+              .tab-content-box
+                each data in contentData
+                  if(data.state != 'active')
+                    .tab-content(data-change-page=data.page)
+                      h2=data.target
+                      p=data.content
+                  else 
+                    .tab-content.active(data-change-page=data.page)
+                      h2=data.target
+                      p=data.content
+
       section.section2
         .container
           h3 下拉選單

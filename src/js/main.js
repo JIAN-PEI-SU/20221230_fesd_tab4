@@ -1,3 +1,5 @@
+import { methods } from './includes/_methods'
+
 const eventHandler = {}
 
 eventHandler.lightBoxListener = function () {
@@ -55,6 +57,22 @@ eventHandler.all = function () {
 }
 
 $(() => {
+  if (fesdDB.is.isOs4 === 'isMacOS') {
+    $('html').addClass('isMac')
+    if (methods.detectMacOSVersion().BigSurUP) {
+      $('html').addClass('isMacBigSurUp')
+    }
+    if (fesdDB.is.isBrowser4 === 'isFirefox') {
+      $('html').addClass('isFirefox')
+    }
+  }
+  // 除Mac系統 & IE瀏覽器外套用卷軸樣式
+  if (fesdDB.is.isOs4 !== 'isMacOS' && fesdDB.is.isBrowser4 !== 'isIE') {
+    $('html').addClass('scrollbarStyle')
+  }
+  methods.appleDebug()
+  methods.fixMobile100vh()
+
   eventHandler.all()
   _g.imagePreview('.pic-box .btn')
   //   _g.categorySlider('.category .category-slider', { breakpoint: 1200 })
