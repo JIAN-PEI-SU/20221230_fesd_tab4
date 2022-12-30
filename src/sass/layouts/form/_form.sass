@@ -1,0 +1,262 @@
+@import ./_variables
+
+.wdd-form
+  max-width: $formWidth
+  width: 100%
+  margin: 0 auto
+  padding: 0 30px
+
+.form-row
+  display: flex
+  align-items: center
+  margin: 0 (-$gap-x * 0.5)
+  &:not(:first-child)
+    margin-top: $gap-y
+
+.form-grid
+  width: 100%
+  padding:  0 ($gap-x * 0.5)
+  &.col-6
+    width: 50%
+  &.col-4
+    width: calc(100% / 3)
+
+
+.form-btn-group
+  display: flex
+  justify-content: center
+  flex-wrap: wrap
+  margin-top: 30px
+  .btn
+    display: flex
+    justify-content: center
+    align-items: center
+    width: 120px
+    height: 40px
+    border: 1px solid #000000
+    border-radius: 10rem
+    transition: background-color 0.2s linear,color 0.2s linear
+    cursor: pointer
+    &:hover
+      background-color: #000000
+      color: #ffffff
+    &:not(:last-child)
+      margin-right: 15px
+
+.form-group
+  position: relative
+  display: flex
+  align-items: flex-start
+  border-bottom: 1px solid rgba(0,0,0,0.2)
+  //必填星號
+  &.required
+    .subject
+      position: relative
+      &::before
+        content: '*'
+        position: absolute
+        top: 0
+        left: 0
+        color: #ff0000
+  //驗證碼
+  &.verification
+    .refresh-btn
+      display: flex
+      align-items: center
+      img
+        align-self: center
+        width: 150px
+        margin-left: auto
+      i
+        font-size: px(20)
+        margin-left: 10px
+  //檔案上傳超過大小限制
+  &.over-limit
+    border-color: #f00
+    .subject
+      color: #f00
+    .file-wrap
+      .fake-file-upload
+        .file-name
+          color: rgba(#f00,0.6)
+  &.is-upload
+    .file-wrap
+      .fake-file-upload
+        .file-name
+          color: $valueColor
+  //所有元件禁用狀態
+  > *.disabled
+    opacity: 0.5
+    pointer-events: none
+  //主旨
+  .subject
+    flex-shrink: 0
+    padding: 10px 0 10px 15px
+    font-size: $subjectFontSize
+    line-height: $field-h
+    color: $subjectColor
+    margin-right: $subjectMargin
+  >input
+    width: 100%
+    height: $field-h * $valueFontSize
+    border: none
+    margin: 10px 0
+    padding: 0 15px
+    font-size: $valueFontSize
+    color: $valueColor
+    &::placeholder 
+      color: $noValueColor
+      opacity: 1 /* Firefox */
+    &:-ms-input-placeholder /* Internet Explorer 10-11 */
+      color: $noValueColor
+    &::-ms-input-placeholder  /* Microsoft Edge */
+      color: $noValueColor
+  //文字輸入框
+  .textarea-scrollbar
+    width: 100%
+    height: 200px
+    line-height: $field-h
+    font-size: $valueFontSize
+    border: 1px solid rgba(0, 0, 0, 0.2)
+    padding: 10px 15px
+    margin-bottom: 10px
+    resize: none
+    &.os-textarea
+      &::placeholder 
+        color: $noValueColor
+        opacity: 1 /* Firefox */
+      &:-ms-input-placeholder /* Internet Explorer 10-11 */
+        color: $noValueColor
+      &::-ms-input-placeholder  /* Microsoft Edge */
+        color: $noValueColor
+    // textarea卷軸樣式
+    .os-theme-dark
+      > .os-scrollbar
+        > .os-scrollbar-track > .os-scrollbar-handle
+          background: $thumbColor
+        &:hover
+          > .os-scrollbar-track > .os-scrollbar-handle
+            background: $thumbHoverColor
+  
+
+  //下拉選單
+  dropdown-el
+    &:not([selected=""])
+      .select-display
+        color: $valueColor
+    &.type-fullbox
+      position: static
+    &[multiple]
+      .select-wrapper
+        padding: 4px 15px
+    &:not([multiple])
+      .select-wrapper
+        padding: 10px 15px
+    .select-wrapper
+      background-color: transparent
+      min-height: 44px
+    .select-display
+      color: $noValueColor
+      font-size: $valueFontSize
+      line-height: $field-h * $valueFontSize
+    .dropdown-icon
+      border-color: #000 transparent transparent transparent
+  
+  //checkbox & radio
+  .form-check
+    width: 100%
+    display: flex
+    flex-wrap: wrap
+    .option-item
+      display: flex
+      align-items: center
+      padding: 10px 0
+      margin-right: 15px
+      user-select: none
+      cursor: pointer
+      .checkbox-wrap
+        position: relative
+        width: 20px
+        height: 20px
+        border: 1px solid #000000
+        margin-right: 8px
+        >input
+          width: 100%
+          height: 100%
+          margin: 0
+          opacity: 0
+          &:checked ~ .fake-checkbox
+            opacity: 1
+        .fake-checkbox
+          position: absolute
+          top: 50%
+          left: 50%
+          transform: translate(-50%,-50%)
+          width: calc(100% - 4px)
+          height: calc(100% - 4px)
+          background-color: #ff0000
+          opacity: 0
+          transition: opacity 0.4s linear
+      .text
+        font-size: $valueFontSize
+        color: #000000
+        line-height: $field-h
+
+  //file-upload
+  .file-wrap
+    position: relative
+    width: 100%
+    cursor: pointer
+    >input
+      width: 100%
+      height: 24px
+      margin: 10px 0
+      opacity: 0
+    .fake-file-upload
+      position: absolute
+      width: 100%
+      height: 100%
+      display: flex
+      align-items: center
+      top: 0
+      left: 0
+      .file-name
+        font-size: $valueFontSize
+        color: $noValueColor
+        line-height: $field-h * $valueFontSize
+        padding-right: 20px
+        +ellipsis($line: 1)
+      .upload-icon
+        width: 30px
+        height: 30px
+        border: 1px solid rgba(0,0,0,0.2)
+        border-radius: 50%
+        margin-left: auto
+      input[type="file"]
+        position: absolute
+        width: 100%
+        height: 100%
+        opacity: 0
+        pointer-events: none
+        z-index: -1
+
+  //日曆
+  .data-time-picker
+    position: relative
+    width: 100%
+    align-self: center
+    >input
+      width: 100%
+      height: $field-h * $valueFontSize
+      border: none
+      margin: 10px 0
+      padding: 0 15px
+      font-size: $valueFontSize
+      color: $valueColor
+      &::placeholder 
+        color: $noValueColor
+        opacity: 1 /* Firefox */
+      &:-ms-input-placeholder /* Internet Explorer 10-11 */
+        color: $noValueColor
+      &::-ms-input-placeholder  /* Microsoft Edge */
+        color: $noValueColor

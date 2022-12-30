@@ -1,0 +1,109 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no")
+    title homework
+    link(rel="stylesheet", href=`./css/style.css`)
+    link(rel="stylesheet", href=`./css/index.css`)
+
+  body
+    main
+      nav.navbar
+        .container
+          img(src="./assets/img/logo.webp")
+          ul.menu
+            li
+              a.lightbox-btn(href="javascript:;" ) 燈箱
+            li
+              a(href="javascript:;" data-anchor-target=".section1" data-anchor-gap='50') 按鈕
+            li
+              a(href="javascript:;" data-anchor-target=".section2" data-anchor-gap='50') 按鈕
+            li
+              a(href="javascript:;" data-anchor-target=".section3" data-anchor-gap='50') 按鈕
+          .pic-box 
+            .photo(data-upload-item="")
+                input.btn(type="file" title="")
+                .preview(data-preview="")
+                  img(src="./assets/img/C01.png", alt="")
+      // 類別
+      section.section1
+        .container
+          h3 類別拖拉
+          .category
+            .category-slider
+              .wrapper
+                .item.active
+                  a(href="javascript:;") 類別按鈕 1
+                .item
+                  a(href="javascript:;") 類別按鈕 2
+                .item
+                  a(href="javascript:;") 類別按鈕 3
+                .item
+                  a(href="javascript:;") 類別按鈕 4
+                .item
+                  a(href="javascript:;") 類別按鈕 5
+                .item
+                  a(href="javascript:;") 類別按鈕 6
+                .item
+                  a(href="javascript:;") 類別按鈕 7
+                .item
+                  a(href="javascript:;") 類別按鈕 8
+                .item
+                  a(href="javascript:;") 類別按鈕 9
+                .item
+                  a(href="javascript:;") 類別按鈕 10
+                .item
+                  a(href="javascript:;") 類別按鈕 11
+                .item
+                  a(href="javascript:;") 類別按鈕 12
+                .item
+                  a(href="javascript:;") 類別按鈕 13
+      section.section2
+        .container
+          h3 下拉選單
+          .dropdown-wrap
+            dropdown-el.dropdown1(d4-placeholder="下拉選單1" control-elements=".dropdown2" multiple)
+              li(data-option="customID") option1
+              li option2
+              li option3
+              li option4
+              li option5
+              li option6
+              li option7
+            dropdown-el.dropdown2.disabled(d4-placeholder="請先選擇下拉選單1" d4-value="下拉選單2")
+              li 下拉選單2
+              li option1
+              li option2
+              li option3
+              li option4
+              li option5
+              li option6
+              li option7
+      section.section3
+        .container
+          h3 影片
+          .video-wrap
+            .item
+              .photo-box(video-target video-id="akjnhyamjnY" video-mode="onPage" video-type="youtube")
+                img(alt="" src="")
+            .item
+              .photo-box(video-target video-id="XNTkxMjA3MjQ0NA" video-autoplay='on' video-player-type="onBox" video-type="youku")
+                img(alt="" src="./assets/img/D1.jpg")
+            .item
+              .photo-box(video-target video-id="754478851" video-autoplay='on' video-player-type="onBox" video-type="vimeo" video-button='.video-btn')
+                img(alt="" src="./assets/img/D2.png")
+                .video-btn
+    
+    
+    // 共用 JS
+    //- script(src="https://code.jquery.com/jquery-3.6.1.js"
+    //-   integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+    //-   crossorigin="anonymous")
+    script(defer src="./js/static/jquery-3.6.0.min.js")
+    // 個別頁面引用 JS
+    block script
+      script(defer src="./js/static/fesdDB.js")
+      script(defer src="./js/global.min.js")
+      script(defer src="./js/common.min.js")
+      script(defer src=`./js/main.min.js`)

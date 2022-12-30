@@ -1,0 +1,13 @@
+{
+  "name": "f2e-framework-2022",
+  "author": "WDD",
+  "version": "1.0.0",
+  "description": "WDD F2E Framework",
+  "dependencies": {
+    "animate.css": "^4.1.1",
+    "flatpickr": "^4.6.9",
+    "overlayscrollbars": "^1.13.1",
+    "tua-body-scroll-lock": "^1.2.1",
+    "vanilla-lazyload": "^17.5.0"
+  }
+}

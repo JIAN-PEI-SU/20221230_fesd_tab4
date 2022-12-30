@@ -1,0 +1,149 @@
+//共用 
+*
+  outline: none
+  -webkit-tap-highlight-color: transparent
+
+html
+  font-size: 100%
+  &.scrollbarStyle
+    scrollbar-width: thin //for Firefox
+    scrollbar-color: rgba(108, 110, 113, 1) transparent //for Firefox
+    body
+      //↓↓↓卷軸樣式↓↓↓
+      &::-webkit-scrollbar-track
+        border-radius: 10px
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3)
+      &::-webkit-scrollbar
+        width: 6px
+        +rwdmax(768)
+          display: none
+      &::-webkit-scrollbar-thumb
+        border-radius: 10px
+        background-color: rgba(108, 110, 113, 1)
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3)
+  //Mac系統以外或是MacOS BigSur以上版本
+  &:not(.isMac),&.isMacBigSurUp,&.isFirefox
+    width: 100vw
+    body
+      width: 100vw
+      overflow-y: auto
+      overflow-x: hidden !important
+      -webkit-overflow-scrolling: touch
+
+  body
+    font-family: $Basic
+    font-weight: normal
+
+input
+  font-family: $Basic
+
+.visuallyhidden
+  position: absolute
+  clip: rect(1px, 1px, 1px, 1px)
+  clip-path: inset(0px 0px 99.9% 99.9%)
+  overflow: hidden
+  height: 1px
+  width: 1px
+  padding: 0
+  border: 0
+  
+.d-none
+  display: none !important
+
+.lazy
+  opacity: 0
+  &.loaded
+    opacity: 1
+    transition: opacity 0.5s ease-in-out
+.swiper-lazy
+  opacity: 0
+  &.swiper-lazy-loaded
+    opacity: 1
+    transition: opacity 0.5s ease-in-out
+
+//複製連結成功提示
+.copied-wrapper
+  position: absolute
+  transform: translate(-50%,100%)
+  z-index: 99999999
+  .text
+    position: relative
+    font-size: px(14)
+    padding: 10px
+    color: #fff
+    background-color: #006fcc
+    border-radius: 10px
+    white-space: nowrap
+    box-shadow: 2.5px 4.3px 20px 0 rgba(0, 0, 0, 0.1)
+    &::before
+      content: ''
+      position: absolute
+      top: 0
+      left: 50%
+      transform: translate(-50%,-100%)
+      width: 0
+      height: 0
+      border-style: solid
+      border-width: 0 7px 9px 7px
+      border-color: transparent transparent #006fcc transparent
+  #clipboard
+    position: absolute
+    width: 100%
+    min-width: 200px
+    top: 50%
+    left: 50%
+    transform: translate(-50%, -50%)
+    z-index: -10
+    opacity: 0
+    cursor: default
+
+// 示意畫面提醒文字
+.sample-tips
+  display: flex
+  justify-content: center
+  width: 100%
+  padding: 20px
+  background-color: #F6F6F6
+  margin: 50px 0
+  &::before
+    content: attr(tips-text)
+    color: #E64646
+    font-size: px(18)
+    font-weight: 500
+    line-height: 1.8
+    text-align: center
+    white-space: pre-wrap
+    +rwdmax(575)
+      font-size: px(16)
+    
+// loading畫面
+.loading-wrapper
+  display: none
+  position: fixed
+  top: 0
+  right: 0
+  bottom: 0
+  left: 0
+  width: 100vw
+  height: 100vh
+  background-color: rgba(#000,0.8)
+  z-index: 9999
+  .icon-box
+    width: 7.8125%
+    min-width: 100px
+    z-index: 1
+    +posCenter
+    &::after
+      content: ''
+      display: block
+      width: 100%
+      height: 0
+      padding-bottom: 100%
+    svg
+      display: block
+      width: 100%
+      height: 100%
+      margin: auto
+      background: none
+      shape-rendering: auto
+      +posCenter

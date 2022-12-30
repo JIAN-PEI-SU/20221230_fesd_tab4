@@ -1,0 +1,33 @@
+[data-modal-id=my-modal]
+  .modal-content
+    position: relative
+    display: flex
+    justify-content: center
+    align-items: center
+    width: 90%
+    min-height: 50vh
+  .close-btn
+    position: absolute
+    top: 0
+    right: 0
+    width: 50px
+    height: 50px
+    cursor: pointer
+    background-color: #839fee
+    &::before,&::after
+      content: ''
+      display: block
+      position: absolute
+      top: 50%
+      left: 50%
+      transform: translate(-50%,-50%) rotate(45deg)
+      background-color: #fff
+    &::before
+      width: 20px
+      height: 1px
+    &::after
+      width: 1px
+      height: 20px
+  .title
+    font-size: px(30)
+    font-weight: bold

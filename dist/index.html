@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>homework</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/index.css">
+  </head>
+  <body>
+    <main>
+      <nav class="navbar">
+        <div class="container"><img src="./assets/img/logo.webp">
+          <ul class="menu">
+            <li><a class="lightbox-btn" href="javascript:;">燈箱</a></li>
+            <li><a href="javascript:;" data-anchor-target=".section1" data-anchor-gap="50">按鈕</a></li>
+            <li><a href="javascript:;" data-anchor-target=".section2" data-anchor-gap="50">按鈕</a></li>
+            <li><a href="javascript:;" data-anchor-target=".section3" data-anchor-gap="50">按鈕</a></li>
+          </ul>
+          <div class="pic-box"> 
+            <div class="photo" data-upload-item="">
+              <input class="btn" type="file" title="">
+              <div class="preview" data-preview=""><img src="./assets/img/C01.png" alt=""></div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <!-- 類別-->
+      <section class="section1">
+        <div class="container">
+          <h3>類別拖拉</h3>
+          <div class="category">
+            <div class="category-slider">
+              <div class="wrapper">
+                <div class="item active"><a href="javascript:;">類別按鈕 1</a></div>
+                <div class="item"><a href="javascript:;">類別按鈕 2</a></div>
+                <div class="item"><a href="javascript:;">類別按鈕 3</a></div>
+                <div class="item"><a href="javascript:;">類別按鈕 4</a></div>
+                <div class="item"><a href="javascript:;">類別按鈕 5</a></div>
+                <div class="item"><a href="javascript:;">類別按鈕 6</a></div>
+                <div class="item"><a href="javascript:;">類別按鈕 7</a></div>
+                <div class="item"><a href="javascript:;">類別按鈕 8</a></div>
+                <div class="item"><a href="javascript:;">類別按鈕 9</a></div>
+                <div class="item"><a href="javascript:;">類別按鈕 10</a></div>
+                <div class="item"><a href="javascript:;">類別按鈕 11</a></div>
+                <div class="item"><a href="javascript:;">類別按鈕 12</a></div>
+                <div class="item"><a href="javascript:;">類別按鈕 13</a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section2">
+        <div class="container">
+          <h3>下拉選單</h3>
+          <div class="dropdown-wrap">
+            <dropdown-el class="dropdown1" d4-placeholder="下拉選單1" control-elements=".dropdown2" multiple>
+              <li data-option="customID">option1</li>
+              <li>option2</li>
+              <li>option3</li>
+              <li>option4</li>
+              <li>option5</li>
+              <li>option6</li>
+              <li>option7</li>
+            </dropdown-el>
+            <dropdown-el class="dropdown2 disabled" d4-placeholder="請先選擇下拉選單1" d4-value="下拉選單2">
+              <li>下拉選單2</li>
+              <li>option1</li>
+              <li>option2</li>
+              <li>option3</li>
+              <li>option4</li>
+              <li>option5</li>
+              <li>option6</li>
+              <li>option7</li>
+            </dropdown-el>
+          </div>
+        </div>
+      </section>
+      <section class="section3">
+        <div class="container">
+          <h3>影片</h3>
+          <div class="video-wrap">
+            <div class="item">
+              <div class="photo-box" video-target video-id="akjnhyamjnY" video-mode="onPage" video-type="youtube"><img alt="" src=""></div>
+            </div>
+            <div class="item">
+              <div class="photo-box" video-target video-id="XNTkxMjA3MjQ0NA" video-autoplay="on" video-player-type="onBox" video-type="youku"><img alt="" src="./assets/img/D1.jpg"></div>
+            </div>
+            <div class="item">
+              <div class="photo-box" video-target video-id="754478851" video-autoplay="on" video-player-type="onBox" video-type="vimeo" video-button=".video-btn"><img alt="" src="./assets/img/D2.png">
+                <div class="video-btn"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- 共用 JS-->
+    <script defer src="./js/static/jquery-3.6.0.min.js"></script>
+    <!-- 個別頁面引用 JS-->
+    <script defer src="./js/static/fesdDB.js"></script>
+    <script defer src="./js/global.min.js"></script>
+    <script defer src="./js/common.min.js"></script>
+    <script defer src="./js/main.min.js"></script>
+  </body>
+</html>

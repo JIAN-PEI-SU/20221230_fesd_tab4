@@ -1,0 +1,195 @@
+body
+  background: #f1efe9
+*
+  font-size: 12px
+nav
+  position: fixed
+  width: 80px
+  height: 95vh
+  background: #f1efe9
+  border-radius: 15px
+  display: flex
+  justify-content: center
+  align-items: center
+  top: 2.5vh
+  left: 10px
+  box-shadow: 5px 5px 30px rgba(0 ,0, 0 ,0.3)
+  .container
+    display: flex
+    flex-direction: column
+    text-align: center
+    height: 100%
+    >img
+      padding: 30px 10px
+    .menu
+      flex: 1
+      height: 100%
+      display: flex
+      flex-direction: column
+      gap: 30px
+      align-items: center
+      justify-content: center
+      // 為了置中
+      margin-bottom: 90.59px
+// 大頭貼
+.pic-box
+  position: absolute
+  width: 80%
+  padding-top: 80%
+  bottom: 20px
+  left: 10%
+  border-radius: 50%
+  box-shadow: 5px 5px 10px rgba(0 ,0, 0 ,0.15)
+  background: #fff
+  overflow: hidden
+  .photo
+    position: absolute
+    width: 100%
+    height: 100%
+    top: 0
+    left: 0
+// 燈箱
+.ajax
+  .modal-content
+    border-radius: 15px
+    box-shadow: 0 0 10px rgba(0,0,0,0.2)
+    background: #f1efe9
+    padding: 20px 0
+  .scroll 
+    max-height: 90vh
+    margin: auto
+    overflow: auto
+    // 捲軸寬度
+    &::-webkit-scrollbar
+      width: 3px
+    // 捲軸背景色
+    &::-webkit-scrollbar-track
+      background: none
+    // 捲軸把手
+    &::-webkit-scrollbar-thumb
+      background: rgba(0,0,0,0.4)
+      border-radius: 99em
+  .container
+    position: relative
+    width: 100%
+    max-width: 1024px
+    margin: 0px auto
+    // padding: 50px
+  .close-button
+    position: absolute
+    width: 30px
+    height: 30px
+    z-index: 11
+    right: 5px
+    top: 5px
+    display: flex
+    justify-content: center
+    align-items: center
+    cursor: pointer
+    transition: 0.3s
+    &::after,
+    &::before
+      content: ''
+      position: absolute
+      width: 15px
+      height: 1px
+      background: #222 
+      transform: rotate(45deg)
+    &::before
+      transform: rotate(-45deg)
+    &:hover
+      transform: scale(1.2)
+  .nav
+    position: sticky
+    top: 0
+    left: 0
+    width: 100%
+    z-index: 10
+    background: #f1efe9
+    box-shadow: 0 0 15px 20px #f1efe9
+    ul
+      display: flex
+      justify-content: center
+      align-items: center
+      gap: 30px
+      a
+        margin: 20px 10px
+        display: inline-block
+  .content
+    section
+      width: 90%
+      min-height: 50vh
+      margin: 30px auto
+      background: var(--bg-color)
+      border-radius: 15px
+      display: flex
+      justify-content: center
+      align-items: center
+main
+  width: calc(100% - 150px)
+  margin: 50px 0
+  margin-left: auto
+  section
+    margin: 100px auto
+  .container
+    width: 90%
+    max-width: 1024px
+    margin: auto
+  h3
+    margin-bottom: 30px
+  // 類別  
+  .category 
+    .wrapper
+      gap: 30px
+      .item
+        padding: 15px 5px  
+        &.active
+          background: #222
+          border-radius: 5px
+          a
+            color: #f1efe9
+  @media screen and (min-width: 1201px)
+    .category
+      .wrapper
+        justify-content: center
+        flex-wrap: wrap
+        // max-width: 800px
+        margin: 0px auto
+  @media screen and (max-width: 1200px)
+    .category 
+      .wrapper
+        gap: 0px
+        .item
+          padding: 15px  
+      // max-width: 400px
+      // width: 100%
+      // margin: 0 auto
+      // border-bottom: 1px solid #f1efe9
+  // 下拉
+  .dropdown-wrap 
+    display: flex
+    justify-content: center
+    align-items: stretch
+    gap: 30px
+  .select-wrapper
+    height: 100%
+  // 影片  
+  .video-wrap
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-direction: column
+    gap: 30px
+    .item
+      width: 100%
+    .video-btn
+      position: absolute
+      width: 50px
+      height: 50px
+      top: 50%
+      left: 50%
+      transform: translate(-50%,-50%)
+      background: rgba(34 ,34 ,34 , .6)
+      z-index: 10
+      border-radius: 50%
+      cursor: pointer
