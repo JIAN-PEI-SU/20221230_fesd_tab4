@@ -93,34 +93,6 @@ html(lang="en")
                   a(href="javascript:;") 類別按鈕 12
                 .item
                   a(href="javascript:;") 類別按鈕 13
-      section.sectionNew 
-        .container
-          h3 頁籤
-          .tab-box
-            tab-box(data-change-parent) 
-              .tab-title
-                .item.active(data-change-id='1')
-                  span button1
-                .item(data-change-id='2')
-                  span button2
-                .item(data-change-id='3')
-                  span button3
-                .item(data-change-id='4')
-                  span button4
-                .item(data-change-id='5')
-                  span button5
-                .item(data-change-id='6')
-                  span button6
-              .tab-content-box
-                each data in contentData
-                  if(data.state != 'active')
-                    .tab-content(data-change-page=data.page)
-                      h2=data.target
-                      p=data.content
-                  else 
-                    .tab-content.active(data-change-page=data.page)
-                      h2=data.target
-                      p=data.content
 
       section.section2
         .container
@@ -143,6 +115,7 @@ html(lang="en")
               li option5
               li option6
               li option7
+
       section.section3
         .container
           h3 影片
@@ -158,7 +131,67 @@ html(lang="en")
                 img(alt="" src="./assets/img/D2.png")
                 .video-btn
     
-    
+      section.sectionNew 
+        .container
+          h3 頁籤
+          //- type='process' / basic 
+          //- display='slide' / fade
+          .tab-box(data-change-parent display='fade') 
+            .tab-title
+              .item.active(data-change-id='1')
+                span button1
+              .item(data-change-id='2')
+                span button2
+              .item(data-change-id='3')
+                span button3
+              .item(data-change-id='4')
+                span button4
+              .item(data-change-id='5')
+                span button5
+              .item(data-change-id='6')
+                span button6
+            .tab-content-box
+              each data in contentData
+                if(data.state != 'active')
+                  .tab-content(data-change-page=data.page)
+                    h2=data.target
+                    p=data.content
+                else 
+                  .tab-content.active(data-change-page=data.page)
+                    h2=data.target
+                    p=data.content
+
+          //- .tab-box(data-change-parent display='fade') 
+          //-   .tab-title
+          //-     .item.active(data-change-id='1' tab4-target="my-tab4")
+          //-       span button1
+          //-     .item(data-change-id='2' tab4-target="my-tab4" )
+          //-       span button2
+          //-     .item(data-change-id='3' tab4-target="my-tab4" )
+          //-       span button3
+          //-     .item(data-change-id='4' tab4-target="my-tab4" )
+          //-       span button4
+          //-     .item(data-change-id='5' tab4-target="my-tab4" )
+          //-       span button5
+          //-     .item(data-change-id='6' tab4-target="my-tab4" )
+          //-       span button6
+          //-   .tab-content-box
+          //-     each data in contentData
+          //-       if(data.state != 'active')
+          //-         .tab-content(data-change-page=data.page)
+          //-           h2=data.target
+          //-           p=data.content
+          //-       else 
+          //-         .tab-content.active(data-change-page=data.page)
+          //-           h2=data.target
+          //-           p=data.content
+          //- // webComponent 
+          //- .tab4-el(tab4-id="my-tab4")
+          //-   .tab-pane()
+          //-   .tab-pane()
+          //-   .tab-pane()
+          //-   .tab-pane()
+          //-   .tab-pane()    
     // 共用 JS
     //- script(src="https://code.jquery.com/jquery-3.6.1.js"
     //-   integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="

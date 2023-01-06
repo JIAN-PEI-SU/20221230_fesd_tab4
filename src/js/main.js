@@ -1,3 +1,4 @@
+import { Tab4 } from './fesd2022/fesd'
 import { methods } from './includes/_methods'
 
 const eventHandler = {}
@@ -77,6 +78,7 @@ $(() => {
   _g.imagePreview('.pic-box .btn')
   //   _g.categorySlider('.category .category-slider', { breakpoint: 1200 })
   _g.categorySlider('.category .category-slider')
+  _g.tab('.tab-box')
 })
 
 // Modal4.defineMethods({
