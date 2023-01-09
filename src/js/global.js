@@ -158,7 +158,7 @@ const _g = {
   },
   tab(selector) {
     const tab4 = new Tab4(selector)
-    window.testTab4 = tab4
+    window.Tab4 = tab4
   },
   categorySlider(selector) {
     new CategorySlider(selector)
