@@ -99,43 +99,14 @@
           <h3>頁籤</h3>
           <!-- 第一版-->
           <!-- 第二版-->
-          <div class="tab-box">
-            <div class="tab-title">
-              <div class="item active" data-change-id="1" tab4-target="my-tab4"><span>button1</span></div>
-              <div class="item" data-change-id="2" tab4-target="my-tab4"><span>button2</span></div>
-              <div class="item" data-change-id="3" tab4-target="my-tab4"><span>button3</span></div>
-              <div class="item" data-change-id="4" tab4-target="my-tab4"><span>button4</span></div>
-              <div class="item" data-change-id="5" tab4-target="my-tab4"><span>button5</span></div>
-              <div class="item" data-change-id="6" tab4-target="my-tab4"><span>button6</span></div>
-            </div>
-            <!-- webComponent -->
-            <div class="tab4-el" data-change-parent type="basic" display="fade" defaultPage="">
-              <div class="tab-pane active" data-change-page="1">
-                <h2>button1</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam accusamus esse id, repudiandae iste adipisci commodi? Nesciunt, veniam sunt voluptas eos dignissimos corporis, itaque omnis beatae ad cum fuga sint.</p>
-              </div>
-              <div class="tab-pane" data-change-page="2">
-                <h2>button2</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam accusamus esse id, repudiandae iste adipisci commodi? Nesciunt, veniam sunt voluptas eos dignissimos corporis, itaque omnis beatae ad cum fuga sint.</p>
-              </div>
-              <div class="tab-pane" data-change-page="3">
-                <h2>button3</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam accusamus esse id, repudiandae iste adipisci commodi? Nesciunt, veniam sunt voluptas eos dignissimos corporis, itaque omnis beatae ad cum fuga sint.</p>
-              </div>
-              <div class="tab-pane" data-change-page="4">
-                <h2>button4</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam accusamus esse id, repudiandae iste adipisci commodi? Nesciunt, veniam sunt voluptas eos dignissimos corporis, itaque omnis beatae ad cum fuga sint.</p>
-              </div>
-              <div class="tab-pane" data-change-page="5">
-                <h2>button5</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam accusamus esse id, repudiandae iste adipisci commodi? Nesciunt, veniam sunt voluptas eos dignissimos corporis, itaque omnis beatae ad cum fuga sint.</p>
-              </div>
-              <div class="tab-pane" data-change-page="6">
-                <h2>button6</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam accusamus esse id, repudiandae iste adipisci commodi? Nesciunt, veniam sunt voluptas eos dignissimos corporis, itaque omnis beatae ad cum fuga sint.</p>
-              </div>
-            </div>
-          </div>
+          <tab-component>
+            <div role="tab" aria-selected="true">Tab 1</div>
+            <div role="tab" aria-selected="">Tab 2</div>
+            <div role="tab" aria-selected="true">Tab 3</div>
+            <div role="tabpanel">Content 1</div>
+            <div role="tabpanel">Content 2</div>
+            <div role="tabpanel">Content 3</div>
+          </tab-component>
         </div>
       </section>
     </main>

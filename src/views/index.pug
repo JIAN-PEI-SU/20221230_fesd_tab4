@@ -163,37 +163,45 @@ html(lang="en")
           //-           h2=data.target
           //-           p=data.content
           // 第二版
-          .tab-box
-            .tab-title
-              .item.active(data-change-id='1' tab4-target="my-tab4")
-                span button1
-              .item(data-change-id='2' tab4-target="my-tab4" )
-                span button2
-              .item(data-change-id='3' tab4-target="my-tab4" )
-                span button3
-              .item(data-change-id='4' tab4-target="my-tab4" )
-                span button4
-              .item(data-change-id='5' tab4-target="my-tab4" )
-                span button5
-              .item(data-change-id='6' tab4-target="my-tab4" )
-                span button6
+          //- .tab-box
+          //-   .tab-title
+          //-     .item.active(data-change-id='1' tab4-target="my-tab4")
+          //-       span button1
+          //-     .item(data-change-id='2' tab4-target="my-tab4" )
+          //-       span button2
+          //-     .item(data-change-id='3' tab4-target="my-tab4" )
+          //-       span button3
+          //-     .item(data-change-id='4' tab4-target="my-tab4" )
+          //-       span button4
+          //-     .item(data-change-id='5' tab4-target="my-tab4" )
+          //-       span button5
+          //-     .item(data-change-id='6' tab4-target="my-tab4" )
+          //-       span button6
 
-            // webComponent 
-            .tab4-el(data-change-parent type='basic' display='fade' defaultPage='')
-              each data in contentData
-                if(data.state != 'active')
-                  .tab-pane(data-change-page=data.page)
-                    h2=data.target
-                    p=data.content
-                else 
-                  .tab-pane.active(data-change-page=data.page)
-                    h2=data.target
-                    p=data.content
+          //-   // webComponent 
+          //-   //- tab-el(data-change-parent)
+          //-   tab-el(data-change-parent t4-type='basic' t4-display='slide' t4-defaultPage='7')
+          //-     each data in contentData
+          //-       if(data.state != 'active')
+          //-         .tab-pane(data-change-page=data.page)
+          //-           h2=data.target
+          //-           p=data.content
+          //-       else 
+          //-         .tab-pane.active(data-change-page=data.page)
+          //-           h2=data.target
+          //-           p=data.content
             //- .tab-pane()
             //- .tab-pane()
             //- .tab-pane()
             //- .tab-pane()
             //- .tab-pane()    
+          tab-component
+            div(role="tab" aria-selected="true") Tab 1
+            div(role="tab" aria-selected="") Tab 2
+            div(role="tab" aria-selected="true") Tab 3
+            div(role="tabpanel") Content 1
+            div(role="tabpanel" ) Content 2
+            div(role="tabpanel" ) Content 3
     // 共用 JS
     //- script(src="https://code.jquery.com/jquery-3.6.1.js"
     //-   integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="

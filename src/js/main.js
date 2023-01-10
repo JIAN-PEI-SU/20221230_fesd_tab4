@@ -51,10 +51,15 @@ eventHandler.dropdown = function () {
     console.log('change!!')
   })
 }
+eventHandler.tab = function () {
+  const tabEl = document.querySelector('tab-el')
+  console.log(tabEl)
+}
 
 eventHandler.all = function () {
   this.lightBoxListener()
   this.dropdown()
+  // this.tab()
 }
 
 $(() => {
@@ -78,7 +83,6 @@ $(() => {
   _g.imagePreview('.pic-box .btn')
   //   _g.categorySlider('.category .category-slider', { breakpoint: 1200 })
   _g.categorySlider('.category .category-slider')
-  _g.tab('.tab4-el')
 })
 
 // Modal4.defineMethods({
