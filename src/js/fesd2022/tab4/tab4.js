@@ -8,6 +8,28 @@ import { isElementExist, getElement, getAllElements } from '../shared/utils.js'
 // [data-change-page]  本人
 
 // 第一版
+// const list = document.querySelectorAll('.tab-title .item')
+// const changeBox = document.querySelectorAll('.tab-content')
+
+// for (var i = 0; i < list.length; i++) {
+//   list[i].addEventListener('click', function () {
+//     showContent(this)
+//   })
+// }
+
+// function showContent(active) {
+//   for (let i = 0; i < list.length; i++) {
+//     if (list[i] == active) {
+//       list[i].classList.add('active')
+//       changeBox[i].classList.remove('hide')
+//     } else {
+//       list[i].classList.remove('active')
+//       changeBox[i].classList.add('hide')
+//     }
+//   }
+// }
+
+// 第二版
 // export default class Tab4 {
 //   constructor(element) {
 //     this.el = typeof element === 'string' ? document.querySelector(element) : element
@@ -112,168 +134,278 @@ import { isElementExist, getElement, getAllElements } from '../shared/utils.js'
 //   }
 // }
 
-// 第二版
+// 第三版
+// class Tab4 extends HTMLElement {
+//   // 定義組件的初始狀態
+//   constructor() {
+//     super()
+//   }
+
+//   // 在組件被插入到文件中時會被呼叫
+//   connectedCallback() {
+//     // 防呆
+//     if (!this.classList.contains('t4-initialize')) {
+//       console.log(this, 'connectedCallback')
+//       // this.#create()
+//     }
+//   }
+//   // 當組件的屬性被更改時會被呼叫
+//   // attributeChangedCallback(){}
+//   // static get observedAttributes() {}
+
+//   // 建立元件
+//   #create() {
+//     // this.s.all_id = this.querySelector('.select-display')
+//     // this.s.dropdownEl = this.querySelector('.dropdown')
+//     // this.s.selectType = this.hasAttribute('multiple') ? 'multiple' : 'single'
+
+//     // const options = {
+//     //   type: this.getAttribute('t4-type'),
+//     //   display: this.getAttribute('t4-display'),
+//     //   defaultPage: this.getAttribute('t4-defaultPage'),
+//     // }
+//     this.t = {}
+//     this.t.event = {}
+//     this.t.options = {}
+//     // 抓值
+//     this.t.child = this.querySelectorAll('.tab-pane')
+//     // 分離物件綁定
+//     this.t.id = this.getAttribute('tab4-id')
+//     // this.t.allBtn = document.querySelectorAll(`[tab4-target="${id}"]`)
+
+//     // console.log(this, 'create')
+//     this.#init()
+//   }
+//   // 初始化設定
+//   #init() {
+//     // 判斷設定 否則設定預設
+//     if (!this.hasAttribute('t4-type')) {
+//       this.setAttribute('t4-type', 'basic')
+//     }
+//     if (!this.hasAttribute('t4-display')) {
+//       this.setAttribute('t4-display', 'fade')
+//     }
+//     if (!this.hasAttribute('t4-defaultPage')) {
+//       this.setAttribute('t4-defaultPage', '1')
+//     }
+//     // console.log(this, 'init')
+//     // 防呆
+//     this.classList.add('t4-initialize')
+//     this.#event()
+//   }
+
+//   // 事件整理
+//   #event() {
+//     // console.log(this, 'event')
+//     // btn.addEventListener('click',function(){})
+//     this.#pageChange()
+//   }
+
+//   // 頁籤切換 data-change-parent
+//   #pageChange() {
+//     // console.log(this)
+//     // 點擊事件綁定
+//     this.#clickEventListen()
+//   }
+
+//   // 點擊切換事件
+//   #clickEventListen() {
+//     // 點擊
+//     // btn.on('click', function () {
+//     //   const $this = $(this)
+//     // let now_id = $this.attr('data-change-id')
+//     // let now_page = $(`[data-change-page = ${now_id}]`)
+//     // // 隱藏其他人
+//     // now_page.siblings().removeClass('active').hide()
+//     // $this.siblings().removeClass('active')
+//     // // 顯示自己
+//     // $this.addClass('active')
+//     // // 判斷顯示方式
+//     // if (display == 'slide') {
+//     //   now_page.addClass('active').slideDown(800)
+//     // } else {
+//     //   now_page.addClass('active').fadeIn(800)
+//     // }
+//     // })
+//     // console.log('change')
+//   }
+
+//   // 步驟切換
+//   #stepChange() {}
+
+//   // 可直接呼叫
+//   // Tab4.pageStep(2)
+//   // 頁面切換
+//   pageStep() {
+//     // let target_page = $(`[data-change-page = ${page}]`)
+//     // let target_id = $(`[data-change-id = ${page}]`)
+//     // let target_step = $(`[data-change-step = ${page}]`)
+//     // target_page.siblings().removeClass('active').hide()
+//     // target_page.addClass('active').fadeIn(400)
+//     // target_id.siblings().removeClass('active')
+//     // target_id.addClass('active')
+//     // target_step.siblings().removeClass('active')
+//     // target_step.prevAll().addClass('active')
+//     // target_step.addClass('active')
+//   }
+// }
+
+// Object.assign(Tab4.prototype, SHARED)
+
+// // define custom element
+// if (!customElements.get('tab-el')) {
+//   customElements.define('tab-el', Tab4)
+// }
+
+// export default Tab4
+
+// 第四版
+
+// [tab-el] 外層
+// [t4-role="btn_prev"]  控制按鈕
+// [t4-role="tab"]  頁籤按鈕
+// [t4-role="tabPanel"]  本人
+
+// 選項
+// [t4-type= 'normal' / 'process']
+// [t4-display = 'fade' / 'slide']
+// [t4-defaultPage = number]
+// [t4-aost = true / false]
+
 class Tab4 extends HTMLElement {
   // 定義組件的初始狀態
-  constructor() {
+  constructor(el, option) {
     super()
   }
-
   // 在組件被插入到文件中時會被呼叫
   connectedCallback() {
+    this.t = []
+    // 按鈕
+    this.t.tabs = []
+    // 名字 配對用
+    this.t.name = this.getAttribute('t4-name')
+    // 內容
+    this.t.tabPanels = []
+    // 存放當前位置
+    this.t.activeTab = 0
+
     // 防呆
     if (!this.classList.contains('t4-initialize')) {
       console.log(this, 'connectedCallback')
-      // this.#create()
+      this.#create()
     }
   }
   // 當組件的屬性被更改時會被呼叫
   // attributeChangedCallback(){}
   // static get observedAttributes() {}
-
-  // 建立元件
   #create() {
-    // this.s.all_id = this.querySelector('.select-display')
-    // this.s.dropdownEl = this.querySelector('.dropdown')
-    // this.s.selectType = this.hasAttribute('multiple') ? 'multiple' : 'single'
-
-    // const options = {
-    //   type: this.getAttribute('t4-type'),
-    //   display: this.getAttribute('t4-display'),
-    //   defaultPage: this.getAttribute('t4-defaultPage'),
-    // }
-    this.t = {}
-    this.t.event = {}
-    this.t.options = {}
     // 抓值
-    this.t.child = this.querySelectorAll('.tab-pane')
-    // 分離物件綁定
-    this.t.id = this.getAttribute('tab4-id')
-    // this.t.allBtn = document.querySelectorAll(`[tab4-target="${id}"]`)
-
-    // console.log(this, 'create')
+    this.t.tabPanels = Array.from(this.querySelectorAll('[t4-role="tabPanel"]'))
+    const { SETTINGS } = OPTIONS
+    // 結構外
+    this.t.tabs = Array.from(document.querySelectorAll(`[t4-control="${this.t.name}"] [t4-role="tab"]`))
+    this.t.next = document.querySelector(`[t4-control="${this.t.name}"][t4-role="btn_next"]`)
+    this.t.prev = document.querySelector(`[t4-control="${this.t.name}"][t4-role="btn_prev"]`)
+    // + 判斷
+    this.t.type = this.getAttribute('t4-type') ?? SETTINGS.type
+    this.t.display = this.getAttribute('t4-display') ?? SETTINGS.display
+    this.t.defaultPage = parseInt(this.getAttribute('t4-defaultPage'), 10) ?? SETTINGS.defaultPage
+    console.log(this)
     this.#init()
   }
   // 初始化設定
   #init() {
-    // 判斷設定 否則設定預設
-    if (!this.hasAttribute('t4-type')) {
-      this.setAttribute('t4-type', 'basic')
+    // 設定預設頁面
+    if (this.t.defaultPage > this.t.tabPanels.length) {
+      this.t.defaultPage = 0
+    } else {
+      this.setActiveTab(this.t.defaultPage)
     }
-    if (!this.hasAttribute('t4-display')) {
-      this.setAttribute('t4-display', 'fade')
-    }
-    if (!this.hasAttribute('t4-defaultPage')) {
-      this.setAttribute('t4-defaultPage', '1')
-    }
-    // console.log(this, 'init')
-    // 防呆
+    // 設定防呆
     this.classList.add('t4-initialize')
     this.#event()
   }
-
-  // 事件整理
+  // 頁面狀態
+  // 按鈕狀態
+  #btnCurrent() {
+    if (this.t.activeTab == this.t.tabPanels.length - 1) {
+      // console.log(this.t.next)
+      this.t.next.setAttribute('disabled', '')
+      this.t.prev.removeAttribute('disabled')
+    } else if (this.t.activeTab == 0) {
+      this.t.prev.setAttribute('disabled', '')
+      this.t.next.removeAttribute('disabled')
+    } else {
+      this.t.next.removeAttribute('disabled')
+      this.t.prev.removeAttribute('disabled')
+    }
+  }
+  // 動畫設定
+  #animation() {
+    // 動畫 消失 動畫 出現 搭配 settimeout 使用
+    // this.style['display'] = 'block'
+    // setTimeout(() => {
+    //   this.style['transition-duration'] = '400ms'
+    //   this.style['opacity'] = '0'
+    // }, 100);
+  }
+  // 事件綁定
   #event() {
-    // console.log(this, 'event')
-    // btn.addEventListener('click',function(){})
-    this.#pageChange()
+    console.log(this)
+    this.t.tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => {
+        this.setActiveTab(index)
+      })
+    })
+    this.t.next.addEventListener('click', () => {
+      this.goNext()
+    })
+    this.t.prev.addEventListener('click', () => {
+      this.goPrev()
+    })
   }
 
-  // 頁籤切換 data-change-parent
-  #pageChange() {
+  // 頁籤切換
+  // 外部呼叫方法 $0.setActiveTab(0)
+  setActiveTab(index) {
+    this.t.tabs.forEach((tab, i) => {
+      if (i === index) {
+        tab.setAttribute('aria-selected', true)
+        this.t.tabPanels[i].classList.remove('hide')
+        this.t.tabPanels[i].hidden = false
+      } else {
+        tab.setAttribute('aria-selected', false)
+        this.t.tabPanels[i].classList.add('hide')
+        this.t.tabPanels[i].hidden = true
+      }
+    })
+    this.t.activeTab = index
+    this.#btnCurrent()
     // console.log(this)
-    // 點擊事件綁定
-    this.#clickEventListen()
   }
 
-  // 點擊切換事件
-  #clickEventListen() {
-    // 點擊
-    // btn.on('click', function () {
-    //   const $this = $(this)
-    // let now_id = $this.attr('data-change-id')
-    // let now_page = $(`[data-change-page = ${now_id}]`)
-    // // 隱藏其他人
-    // now_page.siblings().removeClass('active').hide()
-    // $this.siblings().removeClass('active')
-    // // 顯示自己
-    // $this.addClass('active')
-    // // 判斷顯示方式
-    // if (display == 'slide') {
-    //   now_page.addClass('active').slideDown(800)
-    // } else {
-    //   now_page.addClass('active').fadeIn(800)
-    // }
-    // })
-    // console.log('change')
+  // 按鈕切換
+  // 外部呼叫方法 $0.goNext()
+  goNext() {
+    this.t.activeTab =
+      this.t.activeTab + 1 > this.t.tabPanels.length - 1 ? this.t.tabPanels.length - 1 : this.t.activeTab + 1
+    // console.log(this.t.activeTab, 'next')
+    this.setActiveTab(this.t.activeTab)
+    this.#btnCurrent()
   }
-
-  // 步驟切換
-  #stepChange() {}
-
-  // 可直接呼叫
-  // Tab4.pageStep(2)
-  // 頁面切換
-  pageStep() {
-    // let target_page = $(`[data-change-page = ${page}]`)
-    // let target_id = $(`[data-change-id = ${page}]`)
-    // let target_step = $(`[data-change-step = ${page}]`)
-    // target_page.siblings().removeClass('active').hide()
-    // target_page.addClass('active').fadeIn(400)
-    // target_id.siblings().removeClass('active')
-    // target_id.addClass('active')
-    // target_step.siblings().removeClass('active')
-    // target_step.prevAll().addClass('active')
-    // target_step.addClass('active')
+  // 外部呼叫方法 $0.goPrev()
+  goPrev() {
+    this.t.activeTab = this.t.activeTab - 1 < 0 ? 0 : this.t.activeTab - 1
+    // console.log(this.t.activeTab, 'prev')
+    this.setActiveTab(this.t.activeTab)
+    this.#btnCurrent()
   }
 }
 
 Object.assign(Tab4.prototype, SHARED)
 
-// define custom element
 if (!customElements.get('tab-el')) {
   customElements.define('tab-el', Tab4)
 }
 
 export default Tab4
-
-// 第三版
-class TabbedContent extends HTMLElement {
-  constructor() {
-    super()
-    this.tabs = []
-    this.tabPanels = []
-    this.activeTab = 0
-  }
-  connectedCallback() {
-    this.tabs = Array.from(this.querySelectorAll('[role="tab"]'))
-    this.tabPanels = Array.from(this.querySelectorAll('[role="tabPanel"]'))
-    this.tabs.forEach((tab, index) => {
-      tab.addEventListener('click', () => {
-        this.setActiveTab(index)
-      })
-    })
-    this.setActiveTab(this.activeTab)
-  }
-
-  setActiveTab(index) {
-    console.log(index)
-    this.tabs.forEach((tab, i) => {
-      if (i === index) {
-        tab.setAttribute('aria-selected', true)
-        this.tabPanels[i].hidden = false
-      } else {
-        tab.setAttribute('aria-selected', false)
-        this.tabPanels[i].hidden = true
-      }
-    })
-  }
-}
-
-if (!customElements.get('tab-component')) {
-  customElements.define('tab-component', TabbedContent)
-}
-
-// 這段程式會建立一個叫做 'tab-component' 的 Web Components，它會在連接到文件時找到所有帶有 'role' 屬性的元素並設定事件監聽器，當使用者點擊某個標籤時，會呼叫 setActiveTab() 方法。
-
-// setActiveTab() 方法接收一個索引值並遍歷所有標籤和面板。如果索引值等於活動標籤的索引值，則將該標籤設為活動標籤並顯示對應的面板，否則將其設為非活動標籤並隱藏對應的面板。

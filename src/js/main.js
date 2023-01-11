@@ -1,4 +1,3 @@
-import { Tab4 } from './fesd2022/fesd'
 import { methods } from './includes/_methods'
 
 const eventHandler = {}
@@ -51,15 +50,10 @@ eventHandler.dropdown = function () {
     console.log('change!!')
   })
 }
-eventHandler.tab = function () {
-  const tabEl = document.querySelector('tab-el')
-  console.log(tabEl)
-}
 
 eventHandler.all = function () {
   this.lightBoxListener()
   this.dropdown()
-  // this.tab()
 }
 
 $(() => {

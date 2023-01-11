@@ -6,7 +6,6 @@ import {
   Article4,
   Video4,
   Share4,
-  Tab4,
   ImageValidate,
   CategorySlider,
   ImagePreview,
@@ -134,7 +133,6 @@ const _g = {
     return data
   },
   lazy: new LazyLoad({}),
-  Tab4: new Tab4('[data-change-parent]'),
   aost4: new Aost4('[data-aost]'),
   anchor4: new Anchor4('[data-anchor-target]'),
   modal4: new Modal4('[data-modal-target]', {
@@ -156,10 +154,6 @@ const _g = {
   imagePreview(selector, options) {
     new ImagePreview(selector, options)
   },
-  // tab(selector) {
-  //   const tab4 = new Tab4(selector)
-  //   window.Tab4 = tab4
-  // },
   categorySlider(selector) {
     new CategorySlider(selector)
   },
@@ -176,7 +170,6 @@ window.Anchor4 = Anchor4
 window.Aost4 = Aost4
 window.Modal4 = Modal4
 window.Video4 = Video4
-window.tab4 = Tab4
 window.Article4 = Article4
 
 $(() => {

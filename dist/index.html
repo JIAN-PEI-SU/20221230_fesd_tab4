@@ -13,9 +13,9 @@
         <div class="container"><img src="./assets/img/logo.webp">
           <ul class="menu">
             <li><a class="lightbox-btn" href="javascript:;">燈箱</a></li>
-            <li><a href="javascript:;" data-anchor-target=".section1" data-anchor-gap="50">按鈕</a></li>
-            <li><a href="javascript:;" data-anchor-target=".section2" data-anchor-gap="50">按鈕</a></li>
-            <li><a href="javascript:;" data-anchor-target=".section3" data-anchor-gap="50">按鈕</a></li>
+            <li><a href="javascript:;" data-anchor-target=".section1" data-anchor-gap="50">錨點</a></li>
+            <li><a href="javascript:;" data-anchor-target=".section2" data-anchor-gap="50">錨點</a></li>
+            <li><a href="javascript:;" data-anchor-target=".section3" data-anchor-gap="50">錨點</a></li>
           </ul>
           <div class="pic-box"> 
             <div class="photo" data-upload-item="">
@@ -94,19 +94,48 @@
           </div>
         </div>
       </section>
-      <section class="sectionNew"> 
+      <section class="section4"> 
+        <div class="container">
+          <h3>流程</h3>
+        </div>
+      </section>
+      <section class="section5"> 
         <div class="container">
           <h3>頁籤</h3>
           <!-- 第一版-->
           <!-- 第二版-->
-          <tab-component>
-            <div role="tab" aria-selected="true">Tab 1</div>
-            <div role="tab" aria-selected="">Tab 2</div>
-            <div role="tab" aria-selected="true">Tab 3</div>
-            <div role="tabpanel">Content 1</div>
-            <div role="tabpanel">Content 2</div>
-            <div role="tabpanel">Content 3</div>
-          </tab-component>
+          <!-- 第三版-->
+          <div class="tab-title" t4-control="s5_tab">
+            <div class="item" t4-role="tab">Tab 1</div>
+            <div class="item" t4-role="tab">Tab 2</div>
+            <div class="item" t4-role="tab">Tab 3</div>
+          </div>
+          <div class="btn">
+            <div class="item" t4-control="s5_tab" t4-role="btn_prev"> 
+              <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"></path>
+              </svg>
+            </div>
+            <div class="item" t4-control="s5_tab" t4-role="btn_next">
+              <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
+              </svg>
+            </div>
+          </div>
+          <tab-el t4-name="s5_tab" t4-defaultPage="1">
+            <div class="tab-panel" t4-role="tabPanel"> 
+              <h2>Content 1</h2>
+              <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos, quo tempora minus fugit doloribus cumque ipsam sunt iusto expedita! Incidunt inventore non laudantium odit perferendis fugit reprehenderit? Expedita, magnam enim.</p>
+            </div>
+            <div class="tab-panel" t4-role="tabPanel"> 
+              <h2>Content 2</h2>
+              <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos, quo tempora minus fugit doloribus cumque ipsam sunt iusto expedita! Incidunt inventore non laudantium odit perferendis fugit reprehenderit? Expedita, magnam enim.</p>
+            </div>
+            <div class="tab-panel" t4-role="tabPanel"> 
+              <h2>Content 3</h2>
+              <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos, quo tempora minus fugit doloribus cumque ipsam sunt iusto expedita! Incidunt inventore non laudantium odit perferendis fugit reprehenderit? Expedita, magnam enim.</p>
+            </div>
+          </tab-el>
         </div>
       </section>
     </main>

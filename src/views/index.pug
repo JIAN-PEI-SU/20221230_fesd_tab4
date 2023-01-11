@@ -50,11 +50,11 @@ html(lang="en")
             li
               a.lightbox-btn(href="javascript:;" ) 燈箱
             li
-              a(href="javascript:;" data-anchor-target=".section1" data-anchor-gap='50') 按鈕
+              a(href="javascript:;" data-anchor-target=".section1" data-anchor-gap='50') 錨點
             li
-              a(href="javascript:;" data-anchor-target=".section2" data-anchor-gap='50') 按鈕
+              a(href="javascript:;" data-anchor-target=".section2" data-anchor-gap='50') 錨點
             li
-              a(href="javascript:;" data-anchor-target=".section3" data-anchor-gap='50') 按鈕
+              a(href="javascript:;" data-anchor-target=".section3" data-anchor-gap='50') 錨點
           .pic-box 
             .photo(data-upload-item="")
                 input.btn(type="file" title="")
@@ -131,7 +131,27 @@ html(lang="en")
                 img(alt="" src="./assets/img/D2.png")
                 .video-btn
     
-      section.sectionNew 
+      section.section4 
+        .container
+          h3 流程
+          //- .btn
+          //-   .item(t4-role="btn_prev") 
+          //-     svg(xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6")
+          //-       path(stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5")
+          //-   .item(t4-role="btn_next")
+          //-     svg(xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6")
+          //-       path(stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5")
+          //- tab-el(t4-defaultPage='0')
+          //-   .tab-panel(t4-role="tabPanel") 
+          //-     h2 Content 1
+          //-     p Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos, quo tempora minus fugit doloribus cumque ipsam sunt iusto expedita! Incidunt inventore non laudantium odit perferendis fugit reprehenderit? Expedita, magnam enim.
+          //-   .tab-panel(t4-role="tabPanel" hidden) 
+          //-     h2 Content 2
+          //-     p Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos, quo tempora minus fugit doloribus cumque ipsam sunt iusto expedita! Incidunt inventore non laudantium odit perferendis fugit reprehenderit? Expedita, magnam enim.
+          //-   .tab-panel(t4-role="tabPanel" hidden) 
+          //-     h2 Content 3
+          //-     p Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos, quo tempora minus fugit doloribus cumque ipsam sunt iusto expedita! Incidunt inventore non laudantium odit perferendis fugit reprehenderit? Expedita, magnam enim.
+      section.section5 
         .container
           h3 頁籤
           //- type='process' / basic 
@@ -195,17 +215,29 @@ html(lang="en")
             //- .tab-pane()
             //- .tab-pane()
             //- .tab-pane()    
-          tab-component
-            div(role="tab" aria-selected="true") Tab 1
-            div(role="tab" aria-selected="") Tab 2
-            div(role="tab" aria-selected="true") Tab 3
-            div(role="tabpanel") Content 1
-            div(role="tabpanel" ) Content 2
-            div(role="tabpanel" ) Content 3
+          // 第三版
+          .tab-title(t4-control='s5_tab')
+            .item(t4-role="tab") Tab 1
+            .item(t4-role="tab") Tab 2
+            .item(t4-role="tab") Tab 3
+          .btn
+            .item(t4-control='s5_tab' t4-role="btn_prev") 
+              svg(xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6")
+                path(stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5")
+            .item(t4-control='s5_tab' t4-role="btn_next")
+              svg(xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6")
+                path(stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5")
+          tab-el(t4-name='s5_tab' t4-defaultPage='1')
+            .tab-panel(t4-role="tabPanel") 
+              h2 Content 1
+              p Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos, quo tempora minus fugit doloribus cumque ipsam sunt iusto expedita! Incidunt inventore non laudantium odit perferendis fugit reprehenderit? Expedita, magnam enim.
+            .tab-panel(t4-role="tabPanel") 
+              h2 Content 2
+              p Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos, quo tempora minus fugit doloribus cumque ipsam sunt iusto expedita! Incidunt inventore non laudantium odit perferendis fugit reprehenderit? Expedita, magnam enim.
+            .tab-panel(t4-role="tabPanel") 
+              h2 Content 3
+              p Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos, quo tempora minus fugit doloribus cumque ipsam sunt iusto expedita! Incidunt inventore non laudantium odit perferendis fugit reprehenderit? Expedita, magnam enim.
     // 共用 JS
-    //- script(src="https://code.jquery.com/jquery-3.6.1.js"
-    //-   integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
-    //-   crossorigin="anonymous")
     script(defer src="./js/static/jquery-3.6.0.min.js")
     // 個別頁面引用 JS
     block script
