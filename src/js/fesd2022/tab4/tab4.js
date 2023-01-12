@@ -298,18 +298,21 @@ class Tab4 extends HTMLElement {
   // 當組件的屬性被更改時會被呼叫
   // attributeChangedCallback(){}
   // static get observedAttributes() {}
+
   #create() {
     // 抓值
     this.t.tabPanels = Array.from(this.querySelectorAll('[t4-role="tabPanel"]'))
     const { SETTINGS } = OPTIONS
+    // + 判斷
+    this.t.stepOutput = SETTINGS.stepOutput
+    this.t.type = this.getAttribute('t4-type') ?? SETTINGS.type
+    this.t.display = this.getAttribute('t4-display') ?? SETTINGS.display
+    this.t.defaultPage = parseInt(this.getAttribute('t4-defaultPage'), 10) ?? SETTINGS.defaultPage
     // 結構外
     this.t.tabs = Array.from(document.querySelectorAll(`[t4-control="${this.t.name}"] [t4-role="tab"]`))
     this.t.next = document.querySelector(`[t4-control="${this.t.name}"][t4-role="btn_next"]`)
     this.t.prev = document.querySelector(`[t4-control="${this.t.name}"][t4-role="btn_prev"]`)
-    // + 判斷
-    this.t.type = this.getAttribute('t4-type') ?? SETTINGS.type
-    this.t.display = this.getAttribute('t4-display') ?? SETTINGS.display
-    this.t.defaultPage = parseInt(this.getAttribute('t4-defaultPage'), 10) ?? SETTINGS.defaultPage
+    this.t.step = document.querySelector(`${this.t.stepOutput}[t4-control="${this.t.name}"]`)
     console.log(this)
     this.#init()
   }
@@ -321,33 +324,105 @@ class Tab4 extends HTMLElement {
     } else {
       this.setActiveTab(this.t.defaultPage)
     }
+    // 寫入步驟數
+    if (this.t.step) {
+      this.#sept(this.t.activeTab)
+    }
     // 設定防呆
     this.classList.add('t4-initialize')
     this.#event()
   }
-  // 頁面狀態
+  // 步驟狀態
+  #sept(page) {
+    let current = page + 1
+    this.t.step.textContent = `${current}`
+  }
   // 按鈕狀態
   #btnCurrent() {
-    if (this.t.activeTab == this.t.tabPanels.length - 1) {
-      // console.log(this.t.next)
+    if (this.t.tabPanels.length == 1) {
       this.t.next.setAttribute('disabled', '')
-      this.t.prev.removeAttribute('disabled')
-    } else if (this.t.activeTab == 0) {
       this.t.prev.setAttribute('disabled', '')
-      this.t.next.removeAttribute('disabled')
     } else {
-      this.t.next.removeAttribute('disabled')
-      this.t.prev.removeAttribute('disabled')
+      if (this.t.activeTab == this.t.tabPanels.length - 1) {
+        this.t.next.setAttribute('disabled', '')
+        this.t.prev.removeAttribute('disabled')
+      } else if (this.t.activeTab == 0) {
+        this.t.prev.setAttribute('disabled', '')
+        this.t.next.removeAttribute('disabled')
+      } else {
+        this.t.next.removeAttribute('disabled')
+        this.t.prev.removeAttribute('disabled')
+      }
     }
   }
   // 動畫設定
-  #animation() {
+  #animationHide(el) {
     // 動畫 消失 動畫 出現 搭配 settimeout 使用
-    // this.style['display'] = 'block'
-    // setTimeout(() => {
-    //   this.style['transition-duration'] = '400ms'
-    //   this.style['opacity'] = '0'
-    // }, 100);
+    this.t.tabPanels[el].classList.add('hide')
+    switch (this.t.display) {
+      case 'fade':
+        this.t.tabPanels[el].style['display'] = 'none'
+        this.t.tabPanels[el].style['opacity'] = '0'
+        break
+      case 'slide-up':
+        this.t.tabPanels[el].style['display'] = 'none'
+        console.log(this.t.display, '還沒做好啦!!!!')
+        break
+      case 'slide-down':
+        this.t.tabPanels[el].style['display'] = 'none'
+        console.log(this.t.display, '還沒做好啦!!!!')
+        break
+      case 'slide-left':
+        this.t.tabPanels[el].style['display'] = 'none'
+        console.log(this.t.display, '還沒做好啦!!!!')
+        break
+      case 'slide-right':
+        this.t.tabPanels[el].style['display'] = 'none'
+        console.log(this.t.display, '還沒做好啦!!!!')
+        break
+      default:
+        this.t.tabPanels[el].style['display'] = 'none'
+        console.log(this.t.display, '沒有這個效果請自己想辦法!!!!')
+        break
+    }
+    // this.t.tabPanels[el].hidden = true
+  }
+  #animationShow(el) {
+    this.t.tabPanels[el].classList.remove('hide')
+    switch (this.t.display) {
+      case 'fade':
+        this.t.tabPanels[el].style['display'] = 'block'
+        this.t.tabPanels[el].style['opacity'] = '0'
+        setTimeout(() => {
+          this.t.tabPanels[el].style['transition-duration'] = '1000ms'
+          this.t.tabPanels[el].style['transition-timing-function'] = 'ease'
+          this.t.tabPanels[el].style['transition-delay'] = '0s'
+          this.t.tabPanels[el].style['opacity'] = '1'
+        }, 100)
+        break
+      case 'slide-up':
+        this.t.tabPanels[el].style['display'] = 'block'
+        console.log(this.t.display, '還沒做好啦!!!!')
+        break
+      case 'slide-down':
+        this.t.tabPanels[el].style['display'] = 'block'
+        console.log(this.t.display, '還沒做好啦!!!!')
+        break
+      case 'slide-left':
+        this.t.tabPanels[el].style['display'] = 'block'
+        console.log(this.t.display, '還沒做好啦!!!!')
+        break
+      case 'slide-right':
+        this.t.tabPanels[el].style['display'] = 'block'
+        console.log(this.t.display, '還沒做好啦!!!!')
+        break
+      default:
+        this.t.tabPanels[el].style['display'] = 'block'
+        console.log(this.t.display, '沒有這個效果請自己想辦法!!!!')
+        break
+    }
+    // this.t.tabPanels[el].hidden = false
+    // 動畫 消失 動畫 出現 搭配 settimeout 使用
   }
   // 事件綁定
   #event() {
@@ -365,23 +440,23 @@ class Tab4 extends HTMLElement {
     })
   }
 
+  // 流程切換
+  setActiveSept() {}
+
   // 頁籤切換
   // 外部呼叫方法 $0.setActiveTab(0)
   setActiveTab(index) {
     this.t.tabs.forEach((tab, i) => {
       if (i === index) {
         tab.setAttribute('aria-selected', true)
-        this.t.tabPanels[i].classList.remove('hide')
-        this.t.tabPanels[i].hidden = false
+        this.#animationShow(i)
       } else {
         tab.setAttribute('aria-selected', false)
-        this.t.tabPanels[i].classList.add('hide')
-        this.t.tabPanels[i].hidden = true
+        this.#animationHide(i)
       }
     })
     this.t.activeTab = index
     this.#btnCurrent()
-    // console.log(this)
   }
 
   // 按鈕切換
@@ -389,15 +464,37 @@ class Tab4 extends HTMLElement {
   goNext() {
     this.t.activeTab =
       this.t.activeTab + 1 > this.t.tabPanels.length - 1 ? this.t.tabPanels.length - 1 : this.t.activeTab + 1
-    // console.log(this.t.activeTab, 'next')
-    this.setActiveTab(this.t.activeTab)
+    // console.log(this, this.t.activeTab, 'next')
+
+    if (this.t.type == 'process') {
+      this.#animationHide(this.t.activeTab - 1)
+      this.#animationShow(this.t.activeTab)
+      // 寫入步驟數
+      if (this.t.step) {
+        this.#sept(this.t.activeTab)
+      }
+    } else {
+      // 預設樣式 - normal
+      this.setActiveTab(this.t.activeTab)
+    }
     this.#btnCurrent()
   }
   // 外部呼叫方法 $0.goPrev()
   goPrev() {
     this.t.activeTab = this.t.activeTab - 1 < 0 ? 0 : this.t.activeTab - 1
-    // console.log(this.t.activeTab, 'prev')
-    this.setActiveTab(this.t.activeTab)
+    // console.log(this, this.t.activeTab, 'prev')
+
+    if (this.t.type == 'process') {
+      this.#animationHide(this.t.activeTab + 1)
+      this.#animationShow(this.t.activeTab)
+      // 寫入步驟數
+      if (this.t.step) {
+        this.#sept(this.t.activeTab)
+      }
+    } else {
+      // 預設樣式 - normal
+      this.setActiveTab(this.t.activeTab)
+    }
     this.#btnCurrent()
   }
 }

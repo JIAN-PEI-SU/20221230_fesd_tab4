@@ -3,14 +3,14 @@ export default {
     // 樣式 normal / process
     type: 'normal',
     // 進場方式 fade / slide
-    display: 'slide',
+    display: 'fade',
     // 預設頁面
     defaultPage: '0',
     // 動畫設定
     transition: {
       duration: '400ms',
-      function: '400ms',
-      delay: '400ms',
+      function: 'ease',
+      delay: '0s',
     },
     // 按鈕綁定
     // stepBtn: {
@@ -18,6 +18,6 @@ export default {
     //   next: '.btn_next',
     // },
     // 步驟狀態綁定
-    // stepOutput: '.aaa'
+    stepOutput: '.step-show',
   },
 }

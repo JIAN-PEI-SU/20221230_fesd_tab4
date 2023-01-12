@@ -131,57 +131,69 @@ html(lang="en")
                 img(alt="" src="./assets/img/D2.png")
                 .video-btn
     
+      //- section.sectionTest 
+      //-   .container
+      //-     .btn
+      //-       .item(t4-role="btn_prev" t4-control='s3_tab') 
+      //-         svg(xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6")
+      //-           path(stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5")
+      //-       .item(t4-role="btn_next" t4-control='s3_tab')
+      //-         svg(xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6")
+      //-           path(stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5")
+      //-     tab-el(t4-name='s3_tab' t4-defaultPage='0' t4-type='process')
+      //-       .tab-panel(t4-role="tabPanel") 
+      //-         h2 Content 1
+      //-         p Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos, quo tempora minus fugit doloribus cumque ipsam sunt iusto expedita! Incidunt inventore non laudantium odit perferendis fugit reprehenderit? Expedita, magnam enim.
+              
       section.section4 
         .container
           h3 流程
-          //- .btn
-          //-   .item(t4-role="btn_prev") 
-          //-     svg(xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6")
-          //-       path(stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5")
-          //-   .item(t4-role="btn_next")
-          //-     svg(xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6")
-          //-       path(stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5")
-          //- tab-el(t4-defaultPage='0')
-          //-   .tab-panel(t4-role="tabPanel") 
-          //-     h2 Content 1
-          //-     p Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos, quo tempora minus fugit doloribus cumque ipsam sunt iusto expedita! Incidunt inventore non laudantium odit perferendis fugit reprehenderit? Expedita, magnam enim.
-          //-   .tab-panel(t4-role="tabPanel" hidden) 
-          //-     h2 Content 2
-          //-     p Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos, quo tempora minus fugit doloribus cumque ipsam sunt iusto expedita! Incidunt inventore non laudantium odit perferendis fugit reprehenderit? Expedita, magnam enim.
-          //-   .tab-panel(t4-role="tabPanel" hidden) 
-          //-     h2 Content 3
-          //-     p Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos, quo tempora minus fugit doloribus cumque ipsam sunt iusto expedita! Incidunt inventore non laudantium odit perferendis fugit reprehenderit? Expedita, magnam enim.
+          .content 
+            tab-el(t4-name='s4_tab' t4-defaultPage='0' t4-type='process')
+              .tab-panel(t4-role="tabPanel") 
+                h2 Content 1
+                p Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos, quo tempora minus fugit doloribus cumque ipsam sunt iusto expedita! Incidunt inventore non laudantium odit perferendis fugit reprehenderit? Expedita, magnam enim.
+              .tab-panel(t4-role="tabPanel" hidden) 
+                h2 Content 2
+                p Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos, quo tempora minus fugit doloribus cumque ipsam sunt iusto expedita! Incidunt inventore non laudantium odit perferendis fugit reprehenderit? Expedita, magnam enim.
+              .tab-panel(t4-role="tabPanel" hidden) 
+                h2 Content 3
+                p Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos, quo tempora minus fugit doloribus cumque ipsam sunt iusto expedita! Incidunt inventore non laudantium odit perferendis fugit reprehenderit? Expedita, magnam enim.
+            .step
+              p 現在是 step
+                span.step-show(t4-control='s4_tab') 
+            .btn
+              .item(t4-role="btn_prev" t4-control='s4_tab') 
+                svg(xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6")
+                  path(stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5")
+              .item(t4-role="btn_next" t4-control='s4_tab')
+                svg(xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6")
+                  path(stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5")
       section.section5 
         .container
           h3 頁籤
-          //- type='process' / basic 
-          //- display='slide' / fade
-          //- defaultPage='page'
-          // 第一版
-          //- .tab-box(data-change-parent display='fade') 
-          //-   .tab-title
-          //-     .item.active(data-change-id='1')
-          //-       span button1
-          //-     .item(data-change-id='2')
-          //-       span button2
-          //-     .item(data-change-id='3')
-          //-       span button3
-          //-     .item(data-change-id='4')
-          //-       span button4
-          //-     .item(data-change-id='5')
-          //-       span button5
-          //-     .item(data-change-id='6')
-          //-       span button6
-          //-   .tab-content-box
-          //-     each data in contentData
-          //-       if(data.state != 'active')
-          //-         .tab-content(data-change-page=data.page)
-          //-           h2=data.target
-          //-           p=data.content
-          //-       else 
-          //-         .tab-content.active(data-change-page=data.page)
-          //-           h2=data.target
-          //-           p=data.content
+          // 第三版
+          .tab-title(t4-control='s5_tab')
+            .item(t4-role="tab") Tab 1
+            .item(t4-role="tab") Tab 2
+            .item(t4-role="tab") Tab 3
+          .btn
+            .item(t4-control='s5_tab' t4-role="btn_prev") 
+              svg(xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6")
+                path(stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5")
+            .item(t4-control='s5_tab' t4-role="btn_next")
+              svg(xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6")
+                path(stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5")
+          tab-el(t4-name='s5_tab' t4-defaultPage='1' t4-display='slide-up')
+            .tab-panel(t4-role="tabPanel") 
+              h2 Content 1
+              p Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos, quo tempora minus fugit doloribus cumque ipsam sunt iusto expedita! Incidunt inventore non laudantium odit perferendis fugit reprehenderit? Expedita, magnam enim.
+            .tab-panel(t4-role="tabPanel") 
+              h2 Content 2
+              p Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos, quo tempora minus fugit doloribus cumque ipsam sunt iusto expedita! Incidunt inventore non laudantium odit perferendis fugit reprehenderit? Expedita, magnam enim.
+            .tab-panel(t4-role="tabPanel") 
+              h2 Content 3
+              p Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos, quo tempora minus fugit doloribus cumque ipsam sunt iusto expedita! Incidunt inventore non laudantium odit perferendis fugit reprehenderit? Expedita, magnam enim.
           // 第二版
           //- .tab-box
           //-   .tab-title
@@ -210,33 +222,37 @@ html(lang="en")
           //-         .tab-pane.active(data-change-page=data.page)
           //-           h2=data.target
           //-           p=data.content
-            //- .tab-pane()
-            //- .tab-pane()
-            //- .tab-pane()
-            //- .tab-pane()
-            //- .tab-pane()    
-          // 第三版
-          .tab-title(t4-control='s5_tab')
-            .item(t4-role="tab") Tab 1
-            .item(t4-role="tab") Tab 2
-            .item(t4-role="tab") Tab 3
-          .btn
-            .item(t4-control='s5_tab' t4-role="btn_prev") 
-              svg(xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6")
-                path(stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5")
-            .item(t4-control='s5_tab' t4-role="btn_next")
-              svg(xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6")
-                path(stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5")
-          tab-el(t4-name='s5_tab' t4-defaultPage='1')
-            .tab-panel(t4-role="tabPanel") 
-              h2 Content 1
-              p Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos, quo tempora minus fugit doloribus cumque ipsam sunt iusto expedita! Incidunt inventore non laudantium odit perferendis fugit reprehenderit? Expedita, magnam enim.
-            .tab-panel(t4-role="tabPanel") 
-              h2 Content 2
-              p Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos, quo tempora minus fugit doloribus cumque ipsam sunt iusto expedita! Incidunt inventore non laudantium odit perferendis fugit reprehenderit? Expedita, magnam enim.
-            .tab-panel(t4-role="tabPanel") 
-              h2 Content 3
-              p Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos, quo tempora minus fugit doloribus cumque ipsam sunt iusto expedita! Incidunt inventore non laudantium odit perferendis fugit reprehenderit? Expedita, magnam enim.
+          //- .tab-pane()
+          //- .tab-pane()
+          //- .tab-pane()
+          //- .tab-pane()
+          //- .tab-pane()    
+          // 第一版
+          //- .tab-box(data-change-parent display='fade') 
+          //-   .tab-title
+          //-     .item.active(data-change-id='1')
+          //-       span button1
+          //-     .item(data-change-id='2')
+          //-       span button2
+          //-     .item(data-change-id='3')
+          //-       span button3
+          //-     .item(data-change-id='4')
+          //-       span button4
+          //-     .item(data-change-id='5')
+          //-       span button5
+          //-     .item(data-change-id='6')
+          //-       span button6
+          //-   .tab-content-box
+          //-     each data in contentData
+          //-       if(data.state != 'active')
+          //-         .tab-content(data-change-page=data.page)
+          //-           h2=data.target
+          //-           p=data.content
+          //-       else 
+          //-         .tab-content.active(data-change-page=data.page)
+          //-           h2=data.target
+          //-           p=data.content
+
     // 共用 JS
     script(defer src="./js/static/jquery-3.6.0.min.js")
     // 個別頁面引用 JS

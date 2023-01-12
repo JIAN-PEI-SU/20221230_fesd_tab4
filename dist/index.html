@@ -97,13 +97,42 @@
       <section class="section4"> 
         <div class="container">
           <h3>流程</h3>
+          <div class="content"> 
+            <tab-el t4-name="s4_tab" t4-defaultPage="0" t4-type="process">
+              <div class="tab-panel" t4-role="tabPanel"> 
+                <h2>Content 1</h2>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos, quo tempora minus fugit doloribus cumque ipsam sunt iusto expedita! Incidunt inventore non laudantium odit perferendis fugit reprehenderit? Expedita, magnam enim.</p>
+              </div>
+              <div class="tab-panel" t4-role="tabPanel" hidden> 
+                <h2>Content 2</h2>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos, quo tempora minus fugit doloribus cumque ipsam sunt iusto expedita! Incidunt inventore non laudantium odit perferendis fugit reprehenderit? Expedita, magnam enim.</p>
+              </div>
+              <div class="tab-panel" t4-role="tabPanel" hidden> 
+                <h2>Content 3</h2>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos, quo tempora minus fugit doloribus cumque ipsam sunt iusto expedita! Incidunt inventore non laudantium odit perferendis fugit reprehenderit? Expedita, magnam enim.</p>
+              </div>
+            </tab-el>
+            <div class="step">
+              <p>現在是 step<span class="step-show" t4-control="s4_tab"> </span></p>
+            </div>
+            <div class="btn">
+              <div class="item" t4-role="btn_prev" t4-control="s4_tab"> 
+                <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"></path>
+                </svg>
+              </div>
+              <div class="item" t4-role="btn_next" t4-control="s4_tab">
+                <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
       <section class="section5"> 
         <div class="container">
           <h3>頁籤</h3>
-          <!-- 第一版-->
-          <!-- 第二版-->
           <!-- 第三版-->
           <div class="tab-title" t4-control="s5_tab">
             <div class="item" t4-role="tab">Tab 1</div>
@@ -122,7 +151,7 @@
               </svg>
             </div>
           </div>
-          <tab-el t4-name="s5_tab" t4-defaultPage="1">
+          <tab-el t4-name="s5_tab" t4-defaultPage="1" t4-display="slide-up">
             <div class="tab-panel" t4-role="tabPanel"> 
               <h2>Content 1</h2>
               <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos, quo tempora minus fugit doloribus cumque ipsam sunt iusto expedita! Incidunt inventore non laudantium odit perferendis fugit reprehenderit? Expedita, magnam enim.</p>
@@ -136,6 +165,8 @@
               <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos, quo tempora minus fugit doloribus cumque ipsam sunt iusto expedita! Incidunt inventore non laudantium odit perferendis fugit reprehenderit? Expedita, magnam enim.</p>
             </div>
           </tab-el>
+          <!-- 第二版-->
+          <!-- 第一版-->
         </div>
       </section>
     </main>
