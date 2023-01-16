@@ -8,7 +8,7 @@ export default {
     defaultPage: '0',
     // 動畫設定
     transition: {
-      duration: '400ms',
+      duration: '1000ms',
       function: 'ease',
       delay: '0s',
     },
