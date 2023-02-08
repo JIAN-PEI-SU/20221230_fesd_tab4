@@ -6,6 +6,11 @@ export default {
     display: 'fade',
     // 預設頁面
     defaultPage: '0',
+    // 'true' / 'false'
+    anchor: {
+      anchor: 'true',
+      role: '.tab-title',
+    },
     // 動畫設定
     transition: {
       duration: '1000ms',

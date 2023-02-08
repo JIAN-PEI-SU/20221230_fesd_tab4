@@ -305,14 +305,20 @@ class Tab4 extends HTMLElement {
     const { SETTINGS } = OPTIONS
     // + 判斷
     this.t.stepOutput = SETTINGS.stepOutput
+    this.t.anchor = SETTINGS.anchor
     this.t.type = this.getAttribute('t4-type') ?? SETTINGS.type
     this.t.display = this.getAttribute('t4-display') ?? SETTINGS.display
     this.t.defaultPage = parseInt(this.getAttribute('t4-defaultPage'), 10) ?? SETTINGS.defaultPage
+    this.t.transition = {}
+    this.t.transition.duration = this.getAttribute('t4-duration') ?? SETTINGS.transition.duration
+    this.t.transition.function = this.getAttribute('t4-function') ?? SETTINGS.transition.function
+    this.t.transition.delay = this.getAttribute('t4-delay') ?? SETTINGS.transition.delay
     // 結構外
     this.t.tabs = Array.from(document.querySelectorAll(`[t4-control="${this.t.name}"] [t4-role="tab"]`))
-    this.t.next = document.querySelector(`[t4-control="${this.t.name}"][t4-role="btn_next"]`)
-    this.t.prev = document.querySelector(`[t4-control="${this.t.name}"][t4-role="btn_prev"]`)
+    this.t.next = document.querySelector(`[t4-role="btn_next"][t4-control="${this.t.name}"]`)
+    this.t.prev = document.querySelector(`[t4-role="btn_prev"][t4-control="${this.t.name}"]`)
     this.t.step = document.querySelector(`${this.t.stepOutput}[t4-control="${this.t.name}"]`)
+    this.t.anchor = document.querySelector(`${this.t.anchor.role}[t4-control="${this.t.name}"]`)
     console.log(this)
     this.#init()
   }
@@ -356,6 +362,7 @@ class Tab4 extends HTMLElement {
     }
   }
   // 動畫設定
+  // 消失動畫
   #animationHide(el) {
     // 動畫 消失 動畫 出現 搭配 settimeout 使用
     this.t.tabPanels[el].classList.add('hide')
@@ -364,55 +371,44 @@ class Tab4 extends HTMLElement {
         this.t.tabPanels[el].style['display'] = 'none'
         this.t.tabPanels[el].style['opacity'] = '0'
         break
-      case 'slide-up':
+      case 'slide':
         this.t.tabPanels[el].style['display'] = 'none'
-        console.log(this.t.display, '還沒做好啦!!!!')
+        this.t.tabPanels[el].style['max-height'] = 'unset'
         break
-      case 'slide-down':
+      case 'slide-swiper':
         this.t.tabPanels[el].style['display'] = 'none'
-        console.log(this.t.display, '還沒做好啦!!!!')
-        break
-      case 'slide-left':
-        this.t.tabPanels[el].style['display'] = 'none'
-        console.log(this.t.display, '還沒做好啦!!!!')
-        break
-      case 'slide-right':
-        this.t.tabPanels[el].style['display'] = 'none'
-        console.log(this.t.display, '還沒做好啦!!!!')
         break
       default:
         this.t.tabPanels[el].style['display'] = 'none'
-        console.log(this.t.display, '沒有這個效果請自己想辦法!!!!')
         break
     }
     // this.t.tabPanels[el].hidden = true
   }
+  // 出現動畫
   #animationShow(el) {
     this.t.tabPanels[el].classList.remove('hide')
+    this.t.tabPanels[el].style['transition-duration'] = this.t.transition.duration
+    this.t.tabPanels[el].style['transition-timing-function'] = this.t.transition.function
+    this.t.tabPanels[el].style['transition-delay'] = this.t.transition.delay
     switch (this.t.display) {
       case 'fade':
         this.t.tabPanels[el].style['display'] = 'block'
         this.t.tabPanels[el].style['opacity'] = '0'
-        setTimeout(() => {
-          this.t.tabPanels[el].style['transition-duration'] = '1000ms'
-          this.t.tabPanels[el].style['transition-timing-function'] = 'ease'
-          this.t.tabPanels[el].style['transition-delay'] = '0s'
+        let timer = setTimeout(() => {
+          clearInterval(timer)
           this.t.tabPanels[el].style['opacity'] = '1'
         }, 100)
         break
-      case 'slide-up':
+      case 'slide':
         this.t.tabPanels[el].style['display'] = 'block'
-        console.log(this.t.display, '還沒做好啦!!!!')
+        const clientHeight = this.t.tabPanels[el].offsetHeight
+        this.t.tabPanels[el].style['max-height'] = '0'
+        timer = setTimeout(() => {
+          clearInterval(timer)
+          this.t.tabPanels[el].style['max-height'] = clientHeight + 'px'
+        }, 100)
         break
-      case 'slide-down':
-        this.t.tabPanels[el].style['display'] = 'block'
-        console.log(this.t.display, '還沒做好啦!!!!')
-        break
-      case 'slide-left':
-        this.t.tabPanels[el].style['display'] = 'block'
-        console.log(this.t.display, '還沒做好啦!!!!')
-        break
-      case 'slide-right':
+      case 'slide-swiper':
         this.t.tabPanels[el].style['display'] = 'block'
         console.log(this.t.display, '還沒做好啦!!!!')
         break
