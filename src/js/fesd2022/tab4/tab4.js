@@ -291,7 +291,6 @@ class Tab4 extends HTMLElement {
 
     // 防呆
     if (!this.classList.contains('t4-initialize')) {
-      console.log(this, 'connectedCallback')
       this.#create()
     }
   }
@@ -319,7 +318,6 @@ class Tab4 extends HTMLElement {
     this.t.prev = document.querySelector(`[t4-role="btn_prev"][t4-control="${this.t.name}"]`)
     this.t.step = document.querySelector(`${this.t.stepOutput}[t4-control="${this.t.name}"]`)
     this.t.anchor = document.querySelector(`${this.t.anchor.role}[t4-control="${this.t.name}"]`)
-    console.log(this)
     this.#init()
   }
   // 初始化設定
@@ -335,8 +333,17 @@ class Tab4 extends HTMLElement {
       this.#sept(this.t.activeTab)
     }
     // 設定防呆
-    this.classList.add('t4-initialize')
-    this.#event()
+    if (this.t.type != 'process') {
+      if (this.t.tabPanels.length != this.t.tabs.length) {
+        console.log('按鈕數量與內容不一樣喔!!!!')
+      } else {
+        this.classList.add('t4-initialize')
+        this.#event()
+      }
+    } else {
+      this.classList.add('t4-initialize')
+      this.#event()
+    }
   }
   // 步驟狀態
   #sept(page) {
@@ -402,6 +409,7 @@ class Tab4 extends HTMLElement {
       case 'slide':
         this.t.tabPanels[el].style['display'] = 'block'
         const clientHeight = this.t.tabPanels[el].offsetHeight
+        this.t.tabPanels[el].style['opacity'] = '1'
         this.t.tabPanels[el].style['max-height'] = '0'
         timer = setTimeout(() => {
           clearInterval(timer)
@@ -422,7 +430,6 @@ class Tab4 extends HTMLElement {
   }
   // 事件綁定
   #event() {
-    console.log(this)
     this.t.tabs.forEach((tab, index) => {
       tab.addEventListener('click', () => {
         this.setActiveTab(index)
@@ -437,18 +444,30 @@ class Tab4 extends HTMLElement {
   }
 
   // 流程切換
-  setActiveSept() {}
+  // 外部呼叫方法 $0.setActiveSept(0)
+  setActiveSept(index) {
+    this.setActiveTab(index)
+    this.#sept(index)
+    this.#btnCurrent()
+  }
 
   // 頁籤切換
   // 外部呼叫方法 $0.setActiveTab(0)
   setActiveTab(index) {
+    // 內容狀態
+    this.t.tabPanels.forEach((panel, i) => {
+      if (i === index) {
+        this.#animationShow(i)
+      } else {
+        this.#animationHide(i)
+      }
+    })
+    // 按鈕狀態
     this.t.tabs.forEach((tab, i) => {
       if (i === index) {
         tab.setAttribute('aria-selected', true)
-        this.#animationShow(i)
       } else {
         tab.setAttribute('aria-selected', false)
-        this.#animationHide(i)
       }
     })
     this.t.activeTab = index
@@ -460,15 +479,8 @@ class Tab4 extends HTMLElement {
   goNext() {
     this.t.activeTab =
       this.t.activeTab + 1 > this.t.tabPanels.length - 1 ? this.t.tabPanels.length - 1 : this.t.activeTab + 1
-    // console.log(this, this.t.activeTab, 'next')
-
     if (this.t.type == 'process') {
-      this.#animationHide(this.t.activeTab - 1)
-      this.#animationShow(this.t.activeTab)
-      // 寫入步驟數
-      if (this.t.step) {
-        this.#sept(this.t.activeTab)
-      }
+      this.setActiveSept(this.t.activeTab)
     } else {
       // 預設樣式 - normal
       this.setActiveTab(this.t.activeTab)
@@ -478,15 +490,8 @@ class Tab4 extends HTMLElement {
   // 外部呼叫方法 $0.goPrev()
   goPrev() {
     this.t.activeTab = this.t.activeTab - 1 < 0 ? 0 : this.t.activeTab - 1
-    // console.log(this, this.t.activeTab, 'prev')
-
     if (this.t.type == 'process') {
-      this.#animationHide(this.t.activeTab + 1)
-      this.#animationShow(this.t.activeTab)
-      // 寫入步驟數
-      if (this.t.step) {
-        this.#sept(this.t.activeTab)
-      }
+      this.setActiveSept(this.t.activeTab)
     } else {
       // 預設樣式 - normal
       this.setActiveTab(this.t.activeTab)

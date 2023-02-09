@@ -11,34 +11,33 @@ html(lang="en")
     -
       const contentData = [
         {
-          state:'active',
-          page: '1',
-          target: 'button1',
+          page: 'tab1',
+          target: 'content1',
           content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam accusamus esse id, repudiandae iste adipisci commodi? Nesciunt, veniam sunt voluptas eos dignissimos corporis, itaque omnis beatae ad cum fuga sint.',
         },
         {
-          page: '2',
-          target: 'button2',
+          page: 'tab2',
+          target: 'content2',
           content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam accusamus esse id, repudiandae iste adipisci commodi? Nesciunt, veniam sunt voluptas eos dignissimos corporis, itaque omnis beatae ad cum fuga sint.',
         },
         {
-          page: '3',
-          target: 'button3',
+          page: 'tab3',
+          target: 'content3',
           content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam accusamus esse id, repudiandae iste adipisci commodi? Nesciunt, veniam sunt voluptas eos dignissimos corporis, itaque omnis beatae ad cum fuga sint.',
         },
         {
-          page: '4',
-          target: 'button4',
+          page: 'tab4',
+          target: 'content4',
           content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam accusamus esse id, repudiandae iste adipisci commodi? Nesciunt, veniam sunt voluptas eos dignissimos corporis, itaque omnis beatae ad cum fuga sint.',
         },
         {
-          page: '5',
-          target: 'button5',
+          page: 'tab5',
+          target: 'content5',
           content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam accusamus esse id, repudiandae iste adipisci commodi? Nesciunt, veniam sunt voluptas eos dignissimos corporis, itaque omnis beatae ad cum fuga sint.',
         },
         {
-          page: '6',
-          target: 'button6',
+          page: 'tab6',
+          target: 'content6',
           content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam accusamus esse id, repudiandae iste adipisci commodi? Nesciunt, veniam sunt voluptas eos dignissimos corporis, itaque omnis beatae ad cum fuga sint.',
         },
       ]
@@ -149,16 +148,12 @@ html(lang="en")
         .container
           h3 流程
           .content 
-            tab-el(t4-name='s4_tab' t4-defaultPage='0' t4-type='process')
-              .tab-panel(t4-role="tabPanel") 
-                h2 Content 1
-                p Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos, quo tempora minus fugit doloribus cumque ipsam sunt iusto expedita! Incidunt inventore non laudantium odit perferendis fugit reprehenderit? Expedita, magnam enim.
-              .tab-panel(t4-role="tabPanel" hidden) 
-                h2 Content 2
-                p Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos, quo tempora minus fugit doloribus cumque ipsam sunt iusto expedita! Incidunt inventore non laudantium odit perferendis fugit reprehenderit? Expedita, magnam enim.
-              .tab-panel(t4-role="tabPanel" hidden) 
-                h2 Content 3
-                p Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos, quo tempora minus fugit doloribus cumque ipsam sunt iusto expedita! Incidunt inventore non laudantium odit perferendis fugit reprehenderit? Expedita, magnam enim.
+            tab-el(t4-name='s4_tab' t4-type='process' t4-defaultPage='0')
+              for data in contentData
+                .tab-panel(t4-role="tabPanel") 
+                  h2=data.target
+                  p=data.content
+
             .step
               p 現在是 step
                 span.step-show(t4-control='s4_tab') 
@@ -177,6 +172,9 @@ html(lang="en")
             .item(t4-role="tab") Tab 1
             .item(t4-role="tab") Tab 2
             .item(t4-role="tab") Tab 3
+            .item(t4-role="tab") Tab 4
+            .item(t4-role="tab") Tab 5
+            .item(t4-role="tab") Tab 6
           .btn
             .item(t4-control='s5_tab' t4-role="btn_prev") 
               svg(xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6")
@@ -185,15 +183,10 @@ html(lang="en")
               svg(xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6")
                 path(stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5")
           tab-el(t4-name='s5_tab' t4-defaultPage='1' t4-display='slide')
-            .tab-panel(t4-role="tabPanel") 
-              h2 Content 1
-              p Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos, quo tempora minus fugit doloribus cumque ipsam sunt iusto expedita! Incidunt inventore non laudantium odit perferendis fugit reprehenderit? Expedita, magnam enim.
-            .tab-panel(t4-role="tabPanel") 
-              h2 Content 2
-              p Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos, quo tempora minus fugit doloribus cumque ipsam sunt iusto expedita! Incidunt inventore non laudantium odit perferendis fugit reprehenderit? Expedita, magnam enim.
-            .tab-panel(t4-role="tabPanel") 
-              h2 Content 3
-              p Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos, quo tempora minus fugit doloribus cumque ipsam sunt iusto expedita! Incidunt inventore non laudantium odit perferendis fugit reprehenderit? Expedita, magnam enim.
+            for data in contentData
+              .tab-panel(t4-role="tabPanel") 
+                h2=data.target
+                p=data.content
       section.section6 
         .container
           h3 頁籤
@@ -202,6 +195,9 @@ html(lang="en")
             .item(t4-role="tab") Tab 1
             .item(t4-role="tab") Tab 2
             .item(t4-role="tab") Tab 3
+            .item(t4-role="tab") Tab 4
+            .item(t4-role="tab") Tab 5
+            .item(t4-role="tab") Tab 6
           .btn
             .item(t4-control='s6_tab' t4-role="btn_prev") 
               svg(xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6")
@@ -209,19 +205,12 @@ html(lang="en")
             .item(t4-control='s6_tab' t4-role="btn_next")
               svg(xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6")
                 path(stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5")
-          tab-el(t4-name='s6_tab' t4-defaultPage='1')
-            .tab-panel(t4-role="tabPanel") 
-              .content
-                h2 Content 1
-                p Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos, quo tempora minus fugit doloribus cumque ipsam sunt iusto expedita! Incidunt inventore non laudantium odit perferendis fugit reprehenderit? Expedita, magnam enim.
-            .tab-panel(t4-role="tabPanel") 
-              .content
-                h2 Content 2
-                p Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos, quo tempora minus fugit doloribus cumque ipsam sunt iusto expedita! Incidunt inventore non laudantium odit perferendis fugit reprehenderit? Expedita, magnam enim.
-            .tab-panel(t4-role="tabPanel") 
-              .content
-                h2 Content 3
-                p Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos, quo tempora minus fugit doloribus cumque ipsam sunt iusto expedita! Incidunt inventore non laudantium odit perferendis fugit reprehenderit? Expedita, magnam enim.
+          tab-el(t4-name='s6_tab' t4-defaultPage='2')
+            for data in contentData
+              .tab-panel(t4-role="tabPanel") 
+                .content 
+                  h2=data.target
+                  p=data.content
           // 第二版
           //- .tab-box
           //-   .tab-title

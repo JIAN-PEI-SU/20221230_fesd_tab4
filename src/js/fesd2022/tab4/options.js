@@ -5,7 +5,7 @@ export default {
     // 進場方式 fade / slide
     display: 'fade',
     // 預設頁面
-    defaultPage: '0',
+    defaultPage: 0,
     // 'true' / 'false'
     anchor: {
       anchor: 'true',
