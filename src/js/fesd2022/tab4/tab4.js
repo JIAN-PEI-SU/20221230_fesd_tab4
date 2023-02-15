@@ -1,6 +1,6 @@
 import OPTIONS from './options'
 import SHARED from '../shared/shared'
-import { isElementExist, getElement, getAllElements } from '../shared/utils.js'
+import { isElement, getElement, getAllElements } from '../shared/utils.js'
 
 // 第四版
 class Tab4 extends HTMLElement {
@@ -10,7 +10,7 @@ class Tab4 extends HTMLElement {
   }
   // 在組件被插入到文件中時會被呼叫
   connectedCallback() {
-    this.t = []
+    this.t = {}
     // 按鈕
     this.t.tabs = []
     // 名字 配對用
@@ -76,6 +76,7 @@ class Tab4 extends HTMLElement {
       this.classList.add('t4-initialize')
       this.#event()
     }
+    console.log(this)
   }
   // 步驟狀態
   #step(page) {
@@ -84,7 +85,7 @@ class Tab4 extends HTMLElement {
     this.t.step.setAttribute('now-page', current)
   }
   // 按鈕狀態
-  #btnCurrent() {
+  #btnState() {
     if (this.t.tabPanels.length == 1) {
       this.t.next.setAttribute('disabled', '')
       this.t.prev.setAttribute('disabled', '')
@@ -103,59 +104,59 @@ class Tab4 extends HTMLElement {
   }
   // 動畫設定
   // 消失動畫
-  #animationHide(el) {
+  #animationHide(index) {
     // 動畫 消失 動畫 出現 搭配 settimeout 使用
-    this.t.tabPanels[el].classList.add('hide')
+    this.t.tabPanels[index].classList.add('hide')
     switch (this.t.display) {
       case 'fade':
-        this.t.tabPanels[el].style['display'] = 'none'
-        this.t.tabPanels[el].style['opacity'] = '0'
+        this.t.tabPanels[index].style['display'] = 'none'
+        this.t.tabPanels[index].style['opacity'] = '0'
         break
       case 'slide':
-        this.t.tabPanels[el].style['display'] = 'none'
-        this.t.tabPanels[el].style['opacity'] = '0'
-        this.t.tabPanels[el].style['max-height'] = 'unset'
+        this.t.tabPanels[index].style['display'] = 'none'
+        this.t.tabPanels[index].style['opacity'] = '0'
+        this.t.tabPanels[index].style['max-height'] = 'unset'
         break
       case 'slide-swiper':
-        this.t.tabPanels[el].style['display'] = 'none'
+        this.t.tabPanels[index].style['display'] = 'none'
         break
       default:
-        this.t.tabPanels[el].style['display'] = 'none'
+        this.t.tabPanels[index].style['display'] = 'none'
         break
     }
     // this.t.tabPanels[el].hidden = true
   }
   // 出現動畫
-  #animationShow(el) {
-    this.t.tabPanels[el].classList.remove('hide')
-    this.t.tabPanels[el].style['transition-duration'] = this.t.transition.duration
-    this.t.tabPanels[el].style['transition-timing-function'] = this.t.transition.function
-    this.t.tabPanels[el].style['transition-delay'] = this.t.transition.delay
+  #animationShow(index) {
+    this.t.tabPanels[index].classList.remove('hide')
+    this.t.tabPanels[index].style['transition-duration'] = this.t.transition.duration
+    this.t.tabPanels[index].style['transition-timing-function'] = this.t.transition.function
+    this.t.tabPanels[index].style['transition-delay'] = this.t.transition.delay
     switch (this.t.display) {
       case 'fade':
-        this.t.tabPanels[el].style['display'] = 'block'
-        this.t.tabPanels[el].style['opacity'] = '0'
+        this.t.tabPanels[index].style['display'] = 'block'
+        this.t.tabPanels[index].style['opacity'] = '0'
         let timer = setTimeout(() => {
           clearInterval(timer)
-          this.t.tabPanels[el].style['opacity'] = '1'
+          this.t.tabPanels[index].style['opacity'] = '1'
         }, 100)
         break
       case 'slide':
-        this.t.tabPanels[el].style['display'] = 'block'
-        const clientHeight = this.t.tabPanels[el].offsetHeight
-        this.t.tabPanels[el].style['opacity'] = '1'
-        this.t.tabPanels[el].style['max-height'] = '0'
+        this.t.tabPanels[index].style['display'] = 'block'
+        const clientHeight = this.t.tabPanels[index].offsetHeight
+        this.t.tabPanels[index].style['opacity'] = '1'
+        this.t.tabPanels[index].style['max-height'] = '0'
         timer = setTimeout(() => {
           clearInterval(timer)
-          this.t.tabPanels[el].style['max-height'] = clientHeight + 'px'
+          this.t.tabPanels[index].style['max-height'] = clientHeight + 'px'
         }, 100)
         break
       case 'slide-swiper':
-        this.t.tabPanels[el].style['display'] = 'block'
+        this.t.tabPanels[index].style['display'] = 'block'
         console.log(this.t.display, '還沒做好啦!!!!')
         break
       default:
-        this.t.tabPanels[el].style['display'] = 'block'
+        this.t.tabPanels[index].style['display'] = 'block'
         console.log(this.t.display, '沒有這個效果請自己想辦法!!!!')
         break
     }
@@ -194,7 +195,7 @@ class Tab4 extends HTMLElement {
   #isTrue(fun, val) {
     switch (fun) {
       case 'step':
-        if (this.t.step) {
+        if (isElement(this.t.step)) {
           this.#step(val)
         }
         break
@@ -203,20 +204,20 @@ class Tab4 extends HTMLElement {
           this.#eventAnchor(val)
         }
         break
-      case 'btnCurrent':
-        if (this.t.next) {
-          this.#btnCurrent(val)
+      case 'btnState':
+        if (isElement(this.t.next) || isElement(this.t.prev)) {
+          this.#btnState(val)
         }
         break
       case 'eventNext':
-        if (this.t.next) {
+        if (isElement(this.t.next)) {
           this.t.next.addEventListener('click', () => {
             this.goNext()
           })
         }
         break
       case 'eventPrev':
-        if (this.t.prev) {
+        if (isElement(this.t.prev)) {
           this.t.prev.addEventListener('click', () => {
             this.goPrev()
           })
@@ -228,14 +229,6 @@ class Tab4 extends HTMLElement {
     }
   }
   //  ------------- 我是分隔線呦 -------------
-  // 流程切換
-  // 外部呼叫方法 $0.setActiveStep(0)
-  setActiveStep(index) {
-    this.setActiveTab(index)
-    this.#isTrue('step', index)
-    this.#isTrue('btnCurrent')
-  }
-
   // 頁籤切換
   // 外部呼叫方法 $0.setActiveTab(0)
   setActiveTab(index) {
@@ -247,16 +240,19 @@ class Tab4 extends HTMLElement {
         this.#animationHide(i)
       }
     })
-    // 按鈕狀態
-    this.t.tabs.forEach((tab, i) => {
-      if (i === index) {
-        tab.setAttribute('aria-selected', true)
-      } else {
-        tab.setAttribute('aria-selected', false)
-      }
-    })
+    if (this.t.type != 'process') {
+      // 頁籤按鈕狀態
+      this.t.tabs.forEach((tab, i) => {
+        if (i === index) {
+          tab.setAttribute('aria-selected', true)
+        } else {
+          tab.setAttribute('aria-selected', false)
+        }
+      })
+    }
     this.t.activeTab = index
-    this.#isTrue('btnCurrent')
+    this.#isTrue('step', index)
+    this.#isTrue('btnState')
   }
 
   // 按鈕切換
@@ -264,24 +260,14 @@ class Tab4 extends HTMLElement {
   goNext() {
     this.t.activeTab =
       this.t.activeTab + 1 > this.t.tabPanels.length - 1 ? this.t.tabPanels.length - 1 : this.t.activeTab + 1
-    if (this.t.type != 'process') {
-      // 預設樣式 - normal
-      this.setActiveTab(this.t.activeTab)
-    } else {
-      this.setActiveStep(this.t.activeTab)
-    }
-    this.#btnCurrent()
+    this.setActiveTab(this.t.activeTab)
+    this.#btnState()
   }
   // 外部呼叫方法 $0.goPrev()
   goPrev() {
     this.t.activeTab = this.t.activeTab - 1 < 0 ? 0 : this.t.activeTab - 1
-    if (this.t.type != 'process') {
-      // 預設樣式 - normal
-      this.setActiveTab(this.t.activeTab)
-    } else {
-      this.setActiveStep(this.t.activeTab)
-    }
-    this.#btnCurrent()
+    this.setActiveTab(this.t.activeTab)
+    this.#btnState()
   }
 }
 
