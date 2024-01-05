@@ -11,7 +11,7 @@ export default {
     // 動畫設定
     transition: {
       duration: '1000ms',
-      function: 'ease',
+      timing: 'ease',
       delay: '0s',
     },
     // 步驟狀態綁定

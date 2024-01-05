@@ -146,24 +146,52 @@ html(lang="en")
               
       section.section4 
         .container
-          h3 流程
-          .content 
-            tab-el(t4-name='s4_tab' t4-type='process')
-              for data in contentData
-                .tab-panel(t4-role="tabPanel") 
-                  h2=data.target
-                  p=data.content
+          .wrap
+            h3 流程
+            .content 
+              tab-el(t4-name='s4_tab' t4-type='process')
+                for data in contentData
+                  .tab-panel(t4-role="tabPanel") 
+                    h2=data.target
+                    p=data.content
 
-            .step
-              p 現在是 step
-                span.step-show(t4-control='s4_tab') 
-            .btn
-              .item(t4-role="prev" t4-control='s4_tab') 
-                svg(xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6")
-                  path(stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5")
-              .item(t4-role="next" t4-control='s4_tab')
-                svg(xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6")
-                  path(stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5")
+              .step
+                p 現在是 step
+                  span.step-show(t4-control='s4_tab') 
+              .btn
+                .item(t4-role="prev" t4-control='s4_tab') 
+                  svg(xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6")
+                    path(stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5")
+                .item(t4-role="next" t4-control='s4_tab')
+                  svg(xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6")
+                    path(stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5")
+          .wrap
+            h3 流程
+            .content 
+              tab-el(t4-name='s4_tab_a' t4-type='process' t4-defaultPage='2')
+                for data in contentData
+                  .tab-panel(t4-role="tabPanel") 
+                    h2=data.target
+                    p=data.content
+
+              .step
+                p 現在是 step
+                  span.step-show(t4-control='s4_tab_a') 
+          .wrap
+            h3 流程
+            .content 
+              tab-el(t4-name='s4_tab_b' t4-type='process')
+                for data in contentData
+                  .tab-panel(t4-role="tabPanel") 
+                    h2=data.target
+                    p=data.content
+              .btn
+                .item(t4-role="prev" t4-control='s4_tab_b') 
+                  svg(xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6")
+                    path(stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5")
+                .item(t4-role="next" t4-control='s4_tab_b')
+                  svg(xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6")
+                    path(stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5")
       section.section5 
         .container
           h3 頁籤
@@ -182,9 +210,36 @@ html(lang="en")
             .item(t4-control='s5_tab' t4-role="next")
               svg(xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6")
                 path(stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5")
-          tab-el(t4-name='s5_tab' t4-defaultPage='1' t4-display='slide')
+          tab-el(t4-name='s5_tab' t4-defaultPage='1')
             for data in contentData
               .tab-panel(t4-role="tabPanel") 
+                h2=data.target
+                p=data.content
+      section.sectionTest 
+        .container
+          h3 頁籤
+          // 第五版
+          .tab-title(t4-control='s5_tab_b')
+            .item(t4-role="tab" t4-id='1') Tab 1
+            .item(t4-role="tab" t4-id='3') Tab 3
+            .item(t4-role="tab" t4-id='4') Tab 4
+            .item(t4-role="tab" t4-id='2') Tab 2
+            .item(t4-role="tab" t4-id='5') Tab 5
+            .item(t4-role="tab" t4-id='6') Tab 6
+            .item(t4-role="tab" t4-id='5') Tab 5
+            .item(t4-role="tab" t4-id='6') Tab 6
+            .item(t4-role="tab" t4-id='2') Tab 2
+            .item(t4-role="tab" t4-id='3') Tab 3
+          .btn
+            .item(t4-control='s5_tab_b' t4-role="prev") 
+              svg(xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6")
+                path(stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5")
+            .item(t4-control='s5_tab_b' t4-role="next")
+              svg(xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6")
+                path(stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5")
+          tab-el(t4-name='s5_tab_b' t4-type ='customize')
+            for data,index in contentData
+              .tab-panel(t4-role="tabPanel" t4-id=index+1) 
                 h2=data.target
                 p=data.content
       section.section6 
