@@ -161,54 +161,54 @@ html(lang="en")
       //-         h2 Content 1
       //-         p Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos, quo tempora minus fugit doloribus cumque ipsam sunt iusto expedita! Incidunt inventore non laudantium odit perferendis fugit reprehenderit? Expedita, magnam enim.
               
-      section.section4 
-        .container
-          .wrap
-            h3 流程
-            .content 
-              tab-el(t4-name='s4_tab' t4-type='process')
-                for data in contentData
-                  .tab-panel(t4-role="tabPanel") 
-                    h2=data.target
-                    p=data.content
+      //- section.section4 
+      //-   .container
+      //-     .wrap
+      //-       h3 流程
+      //-       .content 
+      //-         tab-el(t4-name='s4_tab' t4-type='process')
+      //-           for data in contentData
+      //-             .tab-panel(t4-role="tabPanel") 
+      //-               h2=data.target
+      //-               p=data.content
 
-              .step
-                p 現在是 step
-                  span.step-show(t4-control='s4_tab') 
-              .btn
-                .item(t4-role="prev" t4-control='s4_tab') 
-                  svg(xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6")
-                    path(stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5")
-                .item(t4-role="next" t4-control='s4_tab')
-                  svg(xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6")
-                    path(stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5")
-          .wrap
-            h3 流程
-            .content 
-              tab-el(t4-name='s4_tab_a' t4-type='process' t4-defaultPage='2')
-                for data in contentData
-                  .tab-panel(t4-role="tabPanel") 
-                    h2=data.target
-                    p=data.content
+      //-         .step
+      //-           p 現在是 step
+      //-             span.step-show(t4-control='s4_tab') 
+      //-         .btn
+      //-           .item(t4-role="prev" t4-control='s4_tab') 
+      //-             svg(xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6")
+      //-               path(stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5")
+      //-           .item(t4-role="next" t4-control='s4_tab')
+      //-             svg(xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6")
+      //-               path(stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5")
+      //-     .wrap
+      //-       h3 流程
+      //-       .content 
+      //-         tab-el(t4-name='s4_tab_a' t4-type='process' t4-defaultPage='2')
+      //-           for data in contentData
+      //-             .tab-panel(t4-role="tabPanel") 
+      //-               h2=data.target
+      //-               p=data.content
 
-              .step
-                p 現在是 step
-                  span.step-show(t4-control='s4_tab_a') 
-          .wrap
-            h3 流程
-            .content 
-              tab-el(t4-name='s4_tab_b' t4-type='process')
-                for data in contentData
-                  .tab-panel(t4-role="tabPanel") 
-                    h2=data.target
-                    p=data.content
-              .btn
-                .item(t4-role="prev" t4-control='s4_tab_b') 
-                  svg(xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6")
-                    path(stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5")
-                .item(t4-role="next" t4-control='s4_tab_b')
-                  svg(xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6")
-                    path(stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5")
+      //-         .step
+      //-           p 現在是 step
+      //-             span.step-show(t4-control='s4_tab_a') 
+      //-     .wrap
+      //-       h3 流程
+      //-       .content 
+      //-         tab-el(t4-name='s4_tab_b' t4-type='process')
+      //-           for data in contentData
+      //-             .tab-panel(t4-role="tabPanel") 
+      //-               h2=data.target
+      //-               p=data.content
+      //-         .btn
+      //-           .item(t4-role="prev" t4-control='s4_tab_b') 
+      //-             svg(xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6")
+      //-               path(stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5")
+      //-           .item(t4-role="next" t4-control='s4_tab_b')
+      //-             svg(xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6")
+      //-               path(stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5")
       section.section5 
         .container
           h3 頁籤
@@ -226,76 +226,76 @@ html(lang="en")
             .item(t4-control='s5_tab' t4-role="next")
               svg(xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6")
                 path(stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5")
-          tab-el(t4-name='s5_tab' t4-defaultPage='1')
+          tab-el(t4-name='s5_tab')
             for data in contentData
               .tab-panel(t4-role="tabPanel") 
                 h2=data.target
                 p=data.content
-      section.sectionTest 
-        .container
-          h3 頁籤
-          .tab-title
-            .item(t4-control='s5_tab_b' t4-role="tab" t4-id='content1') Tab 1
-            .item(t4-control='s5_tab_b' t4-role="tab" t4-id='content3') Tab 3
-            .item(t4-control='s5_tab_b' t4-role="tab" t4-id='content4') Tab 4
-            .item(t4-control='s5_tab_b' t4-role="tab" t4-id='content2') Tab 2
-            .item(t4-control='s5_tab_b' t4-role="tab" t4-id='content5') Tab 5
-            .item(t4-control='s5_tab_b' t4-role="tab" t4-id='content6') Tab 6
-            .item(t4-control='s5_tab_b' t4-role="tab" t4-id='content5') Tab 5
-            .item(t4-control='s5_tab_b' t4-role="tab" t4-id='content6') Tab 6
-            .item(t4-control='s5_tab_b' t4-role="tab" t4-id='content2') Tab 2
-            .item(t4-control='s5_tab_b' t4-role="tab" t4-id='content3') Tab 3
-          .btn
-            .item(t4-control='s5_tab_b' t4-role="prev") 
-              svg(xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6")
-                path(stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5")
-            .item(t4-control='s5_tab_b' t4-role="next")
-              svg(xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6")
-                path(stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5")
-          tab-el(t4-name='s5_tab_b' t4-group="false")
-            for data,index in contentData
-              .tab-panel(t4-role="tabPanel" t4-id=data.target) 
-                h2=data.target
-                p=data.content
-      section.section7 
-        .container
-          h3 多層頁籤
-          .tab-title
-            .item(t4-control='s7_tab' t4-role="tab") Tab 1
-            .item(t4-control='s7_tab' t4-role="tab") Tab 2
-            .item(t4-control='s7_tab' t4-role="tab") Tab 3
-          tab-el(t4-name='s7_tab' t4-defaultPage='2')
-            for data , index in contentData3
-              .tab-panel(t4-role="tabPanel") 
-                .content
-                  h2=`content${index+1}`
-                  p Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam accusamus esse id, repudiandae iste adipisci commodi? Nesciunt, veniam sunt voluptas eos dignissimos corporis, itaque omnis beatae ad cum fuga sint. 
-                  .tab-title
-                    .item(t4-control=`s7_tab_${index+1}` t4-role="tab") Tab 1
-                    .item(t4-control=`s7_tab_${index+1}` t4-role="tab") Tab 2
-                    .item(t4-control=`s7_tab_${index+1}` t4-role="tab") Tab 3
-                  tab-el(t4-name=`s7_tab_${index+1}` t4-defaultPage='2')
-                    for data , index in contentData3
-                      .tab-panel(t4-role="tabPanel") 
-                        .content
-                          h2=`content${index+1}`
-                          p Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam accusamus esse id, repudiandae iste adipisci commodi? Nesciunt, veniam sunt voluptas eos dignissimos corporis, itaque omnis beatae ad cum fuga sint. 
-      section.section6 
-        .container
-          h3 錨點功能
-          .tab-title
-            .item(t4-control='s6_tab' t4-role="tab") Tab 1
-            .item(t4-control='s6_tab' t4-role="tab") Tab 2
-            .item(t4-control='s6_tab' t4-role="tab") Tab 3
-            .item(t4-control='s6_tab' t4-role="tab") Tab 4
-            .item(t4-control='s6_tab' t4-role="tab") Tab 5
-            .item(t4-control='s6_tab' t4-role="tab") Tab 6
-          tab-el(t4-name='s6_tab' t4-defaultPage='2' t4-anchor='true')
-            for data in contentData
-              .tab-panel(t4-role="tabPanel") 
-                .content 
-                  h2=data.target
-                  p=data.content
+      //- section.sectionTest 
+      //-   .container
+      //-     h3 頁籤
+      //-     .tab-title
+      //-       .item(t4-control='s5_tab_b' t4-role="tab" t4-id='content1') Tab 1
+      //-       .item(t4-control='s5_tab_b' t4-role="tab" t4-id='content3') Tab 3
+      //-       .item(t4-control='s5_tab_b' t4-role="tab" t4-id='content4') Tab 4
+      //-       .item(t4-control='s5_tab_b' t4-role="tab" t4-id='content2') Tab 2
+      //-       .item(t4-control='s5_tab_b' t4-role="tab" t4-id='content5') Tab 5
+      //-       .item(t4-control='s5_tab_b' t4-role="tab" t4-id='content6') Tab 6
+      //-       .item(t4-control='s5_tab_b' t4-role="tab" t4-id='content5') Tab 5
+      //-       .item(t4-control='s5_tab_b' t4-role="tab" t4-id='content6') Tab 6
+      //-       .item(t4-control='s5_tab_b' t4-role="tab" t4-id='content2') Tab 2
+      //-       .item(t4-control='s5_tab_b' t4-role="tab" t4-id='content3') Tab 3
+      //-     .btn
+      //-       .item(t4-control='s5_tab_b' t4-role="prev") 
+      //-         svg(xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6")
+      //-           path(stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5")
+      //-       .item(t4-control='s5_tab_b' t4-role="next")
+      //-         svg(xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6")
+      //-           path(stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5")
+      //-     tab-el(t4-name='s5_tab_b' t4-group="false")
+      //-       for data,index in contentData
+      //-         .tab-panel(t4-role="tabPanel" t4-id=data.target) 
+      //-           h2=data.target
+      //-           p=data.content
+      //- section.section7 
+      //-   .container
+      //-     h3 多層頁籤
+      //-     .tab-title
+      //-       .item(t4-control='s7_tab' t4-role="tab" t4-id='content1') Tab 1
+      //-       .item(t4-control='s7_tab' t4-role="tab" t4-id='content2') Tab 2
+      //-       .item(t4-control='s7_tab' t4-role="tab" t4-id='content3') Tab 3
+      //-     tab-el(t4-name='s7_tab' t4-defaultPage='content2' t4-group="false")
+      //-       for data , index in contentData3
+      //-         .tab-panel(t4-role="tabPanel" t4-id=`content${index+1}`) 
+      //-           .content
+      //-             h2=`content${index+1}`
+      //-             p Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam accusamus esse id, repudiandae iste adipisci commodi? Nesciunt, veniam sunt voluptas eos dignissimos corporis, itaque omnis beatae ad cum fuga sint. 
+      //-             .tab-title
+      //-               .item(t4-control=`s7_tab_${index+1}` t4-role="tab" t4-id='content1') Tab 1
+      //-               .item(t4-control=`s7_tab_${index+1}` t4-role="tab" t4-id='content2') Tab 2
+      //-               .item(t4-control=`s7_tab_${index+1}` t4-role="tab" t4-id='content3') Tab 3
+      //-             tab-el(t4-name=`s7_tab_${index+1}` t4-group="false" t4-defaultPage='content2')
+      //-               for data , index in contentData3
+      //-                 .tab-panel(t4-role="tabPanel" t4-id=`content${index+1}`) 
+      //-                   .content
+      //-                     h2=`content${index+1}`
+      //-                     p Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam accusamus esse id, repudiandae iste adipisci commodi? Nesciunt, veniam sunt voluptas eos dignissimos corporis, itaque omnis beatae ad cum fuga sint. 
+      //- section.section6 
+      //-   .container
+      //-     h3 錨點功能
+      //-     .tab-title
+      //-       .item(t4-control='s6_tab' t4-role="tab") Tab 1
+      //-       .item(t4-control='s6_tab' t4-role="tab") Tab 2
+      //-       .item(t4-control='s6_tab' t4-role="tab") Tab 3
+      //-       .item(t4-control='s6_tab' t4-role="tab") Tab 4
+      //-       .item(t4-control='s6_tab' t4-role="tab") Tab 5
+      //-       .item(t4-control='s6_tab' t4-role="tab") Tab 6
+      //-     tab-el(t4-name='s6_tab' t4-defaultPage='2' t4-anchor='true')
+      //-       for data in contentData
+      //-         .tab-panel(t4-role="tabPanel") 
+      //-           .content 
+      //-             h2=data.target
+      //-             p=data.content
 
     // 共用 JS
     script(defer src="./js/static/jquery-3.6.0.min.js")

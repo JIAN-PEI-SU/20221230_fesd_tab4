@@ -40,7 +40,7 @@ class Tab4 extends HTMLElement {
     // 內容
     this.t.tabPanels = []
     // 存放當前位置
-    this.t.activeTab = 0
+    this.t.activeTab = '0'
     // 抓值
     const { SETTINGS } = OPTIONS
     this.t.tabPanels = [...this.children]
@@ -62,7 +62,7 @@ class Tab4 extends HTMLElement {
     // 基本設定 + 判斷
     this.t.type = this.getAttribute('t4-type') ?? SETTINGS.type
     this.t.display = this.getAttribute('t4-display') ?? SETTINGS.display
-    this.t.defaultPage = parseInt(this.getAttribute('t4-defaultPage') ?? SETTINGS.defaultPage, 10)
+    this.t.defaultPage = this.getAttribute('t4-defaultPage') ?? SETTINGS.defaultPage
     this.#init()
   }
   #init(){
@@ -86,15 +86,16 @@ class Tab4 extends HTMLElement {
           console.log(el,'請幫我設定id！！');
         }
       });
+      return Array.from(document.querySelectorAll(`[t4-control="${this.t.name}"][t4-role="tab"]`))
     }
   }
   #getTabIndex(id){
-    const tabPanel = document.querySelector(`[t4-name="${this.t.name}"] [t4-role="tabPanel"][t4-id="${id}"]`)
-    const tabIndex = this.t.tabPanels.indexOf(tabPanel);
+    const tabPanel = document.querySelector(`[t4-name="${this.t.name}"]>[t4-role="tabPanel"][t4-id="${id}"]`)
+    const tabIndex = this.t.tabPanels.indexOf(tabPanel)
     return tabIndex
   }
   #getDefaultPage(){
-    let page = 0
+    let page
     if(this.t.url){
       console.log('抓網址？？？？');
     }else{
@@ -185,8 +186,8 @@ class Tab4 extends HTMLElement {
     })
   }
   // 步驟狀態
-  #step(page) {
-    let current = parseInt(page, 10) + 1
+  #step(id) {
+    let current = parseInt(id, 10) + 1
     this.t.step.textContent = `${current}`
     this.t.step.setAttribute('now-page', current)
   }
@@ -233,7 +234,7 @@ class Tab4 extends HTMLElement {
     })
   }
   // 頁籤狀態
-  #tabState(newPage) {
+  #tabState(newPage,controlId) {
     if(this.t.tabGroup === "true"){
       this.t.tabs.forEach((tab, i) => {
         if (i == newPage) {
@@ -242,6 +243,9 @@ class Tab4 extends HTMLElement {
           tab.setAttribute('aria-selected', false)
         }
       })
+    }else{
+      // 自訂 id 的話...
+      console.log(controlId);
     }
   }
   // 判斷元件並執行
@@ -296,14 +300,15 @@ class Tab4 extends HTMLElement {
     let timer
     clearTimeout(timer)
     timer = setTimeout(() => {
-      console.log( _this.t.transition.duration);
       _this.#isTrue("eventAnchor",newTabIndex)
     }, _this.t.transition.duration);
   }
   // 外部呼叫方法 $0.setActiveTab(0)
-  setActiveTab(newTabIndex) { 
-    this.t.activeTabIndex = newTabIndex
-    this.setAttribute('t4-active', newTabIndex)
+  setActiveTab(id) {
+    const defaultID = id === '' ? this.t.tabPanels[0].getAttribute('t4-id') : id
+    const newTabIndex = this.#getTabIndex(defaultID)
+    this.t.activeTab = defaultID
+    this.setAttribute('t4-active', defaultID)
     this.t.tabPanels.forEach((panel, i) => {
       if (i === newTabIndex) {
         this.#animationShow(i)
@@ -325,7 +330,7 @@ class Tab4 extends HTMLElement {
   }
   // 外部呼叫方法 $0.t4Update()
   t4Update() {
-    const nowPage = parseInt(this.getAttribute('t4-active') ?? this.t.activeTabIndex, 10)
+    const nowPage = this.getAttribute('t4-active') ?? this.t.activeTab
     this.setActiveTab(nowPage)
     console.log(`你現在在頁面${nowPage}`);
 
