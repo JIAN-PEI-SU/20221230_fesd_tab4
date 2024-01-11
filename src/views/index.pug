@@ -195,7 +195,6 @@ html(lang="en")
       section.section5 
         .container
           h3 頁籤
-          // 第三版
           .tab-title(t4-control='s5_tab')
             .item(t4-role="tab") Tab 1
             .item(t4-role="tab") Tab 2
@@ -218,18 +217,17 @@ html(lang="en")
       section.sectionTest 
         .container
           h3 頁籤
-          // 第五版
-          .tab-title(t4-control='s5_tab_b')
-            .item(t4-role="tab" t4-id='1') Tab 1
-            .item(t4-role="tab" t4-id='3') Tab 3
-            .item(t4-role="tab" t4-id='4') Tab 4
-            .item(t4-role="tab" t4-id='2') Tab 2
-            .item(t4-role="tab" t4-id='5') Tab 5
-            .item(t4-role="tab" t4-id='6') Tab 6
-            .item(t4-role="tab" t4-id='5') Tab 5
-            .item(t4-role="tab" t4-id='6') Tab 6
-            .item(t4-role="tab" t4-id='2') Tab 2
-            .item(t4-role="tab" t4-id='3') Tab 3
+          .tab-title
+            .item(t4-control='s5_tab_b' t4-role="tab" t4-id='1') Tab 1
+            .item(t4-control='s5_tab_b' t4-role="tab" t4-id='3') Tab 3
+            .item(t4-control='s5_tab_b' t4-role="tab" t4-id='4') Tab 4
+            .item(t4-control='s5_tab_b' t4-role="tab" t4-id='2') Tab 2
+            .item(t4-control='s5_tab_b' t4-role="tab" t4-id='5') Tab 5
+            .item(t4-control='s5_tab_b' t4-role="tab" t4-id='6') Tab 6
+            .item(t4-control='s5_tab_b' t4-role="tab" t4-id='5') Tab 5
+            .item(t4-control='s5_tab_b' t4-role="tab" t4-id='6') Tab 6
+            .item(t4-control='s5_tab_b' t4-role="tab" t4-id='2') Tab 2
+            .item(t4-control='s5_tab_b' t4-role="tab" t4-id='3') Tab 3
           .btn
             .item(t4-control='s5_tab_b' t4-role="prev") 
               svg(xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6")
@@ -237,7 +235,7 @@ html(lang="en")
             .item(t4-control='s5_tab_b' t4-role="next")
               svg(xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6")
                 path(stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5")
-          tab-el(t4-name='s5_tab_b' t4-type ='customize')
+          tab-el(t4-name='s5_tab_b' t4-group="false")
             for data,index in contentData
               .tab-panel(t4-role="tabPanel" t4-id=index+1) 
                 h2=data.target
@@ -245,78 +243,19 @@ html(lang="en")
       section.section6 
         .container
           h3 錨點功能
-          // 第三版
-          .tab-title(t4-control='s6_tab')
-            .item(t4-role="tab") Tab 1
-            .item(t4-role="tab") Tab 2
-            .item(t4-role="tab") Tab 3
-            .item(t4-role="tab") Tab 4
-            .item(t4-role="tab") Tab 5
-            .item(t4-role="tab") Tab 6
+          .tab-title
+            .item(t4-control='s6_tab' t4-role="tab") Tab 1
+            .item(t4-control='s6_tab' t4-role="tab") Tab 2
+            .item(t4-control='s6_tab' t4-role="tab") Tab 3
+            .item(t4-control='s6_tab' t4-role="tab") Tab 4
+            .item(t4-control='s6_tab' t4-role="tab") Tab 5
+            .item(t4-control='s6_tab' t4-role="tab") Tab 6
           tab-el(t4-name='s6_tab' t4-defaultPage='2' t4-anchor='true')
             for data in contentData
               .tab-panel(t4-role="tabPanel") 
                 .content 
                   h2=data.target
                   p=data.content
-          // 第二版
-          //- .tab-box
-          //-   .tab-title
-          //-     .item.active(data-change-id='1' tab4-target="my-tab4")
-          //-       span button1
-          //-     .item(data-change-id='2' tab4-target="my-tab4" )
-          //-       span button2
-          //-     .item(data-change-id='3' tab4-target="my-tab4" )
-          //-       span button3
-          //-     .item(data-change-id='4' tab4-target="my-tab4" )
-          //-       span button4
-          //-     .item(data-change-id='5' tab4-target="my-tab4" )
-          //-       span button5
-          //-     .item(data-change-id='6' tab4-target="my-tab4" )
-          //-       span button6
-
-          //-   // webComponent 
-          //-   //- tab-el(data-change-parent)
-          //-   tab-el(data-change-parent t4-type='basic' t4-display='slide' t4-defaultPage='7')
-          //-     each data in contentData
-          //-       if(data.state != 'active')
-          //-         .tab-pane(data-change-page=data.page)
-          //-           h2=data.target
-          //-           p=data.content
-          //-       else 
-          //-         .tab-pane.active(data-change-page=data.page)
-          //-           h2=data.target
-          //-           p=data.content
-          //- .tab-pane()
-          //- .tab-pane()
-          //- .tab-pane()
-          //- .tab-pane()
-          //- .tab-pane()    
-          // 第一版
-          //- .tab-box(data-change-parent display='fade') 
-          //-   .tab-title
-          //-     .item.active(data-change-id='1')
-          //-       span button1
-          //-     .item(data-change-id='2')
-          //-       span button2
-          //-     .item(data-change-id='3')
-          //-       span button3
-          //-     .item(data-change-id='4')
-          //-       span button4
-          //-     .item(data-change-id='5')
-          //-       span button5
-          //-     .item(data-change-id='6')
-          //-       span button6
-          //-   .tab-content-box
-          //-     each data in contentData
-          //-       if(data.state != 'active')
-          //-         .tab-content(data-change-page=data.page)
-          //-           h2=data.target
-          //-           p=data.content
-          //-       else 
-          //-         .tab-content.active(data-change-page=data.page)
-          //-           h2=data.target
-          //-           p=data.content
 
     // 共用 JS
     script(defer src="./js/static/jquery-3.6.0.min.js")

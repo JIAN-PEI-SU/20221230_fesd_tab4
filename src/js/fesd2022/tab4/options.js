@@ -8,6 +8,7 @@ export default {
     defaultPage: 0,
     // 滑動扣除高度
     anchorGap: 0,
+    tabGroup: 'true',
     // 動畫設定
     transition: {
       duration: '1000ms',
