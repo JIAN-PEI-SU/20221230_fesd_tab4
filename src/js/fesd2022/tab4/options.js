@@ -11,9 +11,9 @@ export default {
     tabGroup: 'true',
     // 動畫設定
     transition: {
-      duration: '1000ms',
+      duration: 500,
       timing: 'ease',
-      delay: '0s',
+      delay: 0,
     },
     // 步驟狀態綁定
     stepOutput: '.step-show',
