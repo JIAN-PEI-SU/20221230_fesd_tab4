@@ -2,7 +2,7 @@ import OPTIONS from './options'
 import SHARED from '../shared/shared'
 import { isElement, getElement, getAllElements } from '../shared/utils.js'
 
-// 第五版
+// 第六版
 class Tab4 extends HTMLElement {
   // 定義組件的初始狀態
   constructor(el, option) {
@@ -12,10 +12,10 @@ class Tab4 extends HTMLElement {
   static get observedAttributes() {
     return ['t4-active']
   }
-  attributeChangedCallback(attr, oldVal, newVal){
-    if(attr === 't4-active'){
+  attributeChangedCallback(attr, oldVal, newVal) {
+    if (attr === 't4-active') {
       // change function
-      if(oldVal !== newVal){
+      if (oldVal !== newVal) {
         this.#stateChange(newVal)
       }
     }
@@ -26,150 +26,119 @@ class Tab4 extends HTMLElement {
       this.#create()
     }
   }
-  #create(){
-    const name = this.getAttribute('t4-name')
-    if(document.querySelectorAll(`tab-el[t4-name=${name}]`).length > 1){
-      console.log('名字有重複喔！！！');
+  #create() {
+    const name = this.getAttribute('t4-name');
+
+    // 防呆！
+    if (document.querySelectorAll(`tab-el[t4-name=${name}]`).length > 1) {
+      console.warn('名字有重複喔！！！');
     }
-    this.t = {}
+
+    this.t = {
+      tabs: [],
+      name: name,
+      tabPanels: [...this.children],
+      activeTab: '',
+      recordUrl: this.getAttribute('t4-url') || OPTIONS.SETTINGS.recordUrl,
+      stepOutput: OPTIONS.SETTINGS.stepOutput,
+      type: this.getAttribute('t4-type') || OPTIONS.SETTINGS.type,
+      display: this.getAttribute('t4-display') || OPTIONS.SETTINGS.display,
+      defaultPage: this.getAttribute('t4-defaultPage') || OPTIONS.SETTINGS.defaultPage,
+      anchor: this.getAttribute('t4-anchor'),
+      gap: this.getAttribute('t4-gap') || OPTIONS.SETTINGS.anchorGap,
+      transition: {
+        duration: this.getAttribute('t4-duration') || OPTIONS.SETTINGS.transition.duration,
+        timing: this.getAttribute('t4-timing') || OPTIONS.SETTINGS.transition.timing,
+        delay: this.getAttribute('t4-delay') || OPTIONS.SETTINGS.transition.delay,
+      },
+      tabGroup: this.getAttribute('t4-group') || OPTIONS.SETTINGS.tabGroup,
+    };
     this.__events__ = {}
-    // 按鈕
-    this.t.tabs = []
-    // 名字 配對用
-    this.t.name = name
-    // 內容
-    this.t.tabPanels = []
-    // 存放當前位置
-    this.t.activeTab = '0'
-    // 抓值
-    const { SETTINGS } = OPTIONS
-    this.t.tabPanels = [...this.children]
-    this.t.stepOutput = SETTINGS.stepOutput
-    // 網址設定
-    this.t.url = this.getAttribute('t4-url')
-    // 錨點設定
-    this.t.anchor = this.getAttribute('t4-anchor')
-    this.t.gap = this.getAttribute('t4-gap') ?? SETTINGS.anchorGap
-    // 動畫設定
-    this.t.transition = {}
-    this.t.transition.duration = this.getAttribute('t4-duration') ?? SETTINGS.transition.duration
-    this.t.transition.timing = this.getAttribute('t4-timing') ?? SETTINGS.transition.timing
-    this.t.transition.delay = this.getAttribute('t4-delay') ?? SETTINGS.transition.delay
-    // 結構外
-    this.t.tabGroup = this.getAttribute('t4-group') ?? SETTINGS.tabGroup
-    this.t.tabs = this.#tabSet()
-    this.t.step = document.querySelector(`[t4-control="${this.t.name}"]${this.t.stepOutput}`)
-    // 基本設定 + 判斷
-    this.t.type = this.getAttribute('t4-type') ?? SETTINGS.type
-    this.t.display = this.getAttribute('t4-display') ?? SETTINGS.display
-    this.t.defaultPage = this.getAttribute('t4-defaultPage') ?? SETTINGS.defaultPage
-    this.#init()
+    this.t.tabs = this.#tabSet();
+    this.t.step = document.querySelector(`[t4-control="${this.t.name}"]${this.t.stepOutput}`);
+    this.#init();
   }
-  #init(){
-    // 初始化設定
-    // 設定預設頁面
-    this.t.activeTab = this.#getDefaultPage()
-    // 寫入步驟數
+
+  #init() {
+    // 初始化 設定預設頁面
+    this.t.activeTab = this.t.defaultPage
     // 設定防呆
     this.classList.add('t4-initialize')
-    this.setActiveTab(this.t.activeTab)
+    if (this.t.recordUrl) {
+      const params = new URLSearchParams(document.location.search);
+      const val = params.get(this.t.name);
+
+      // 如果網址中有對應的參數 載入對應的頁籤
+      if (val) {
+        this.setActiveTab(val);
+      } else {
+        this.setActiveTab(this.t.activeTab);
+      }
+    } else {
+      // 沒有啟用網址紀錄功能
+      this.setActiveTab(this.t.activeTab);
+    }
   }
+  // 第一關 判斷數量以及id設定
   #tabSet() {
-    if(this.t.tabGroup === "true"){
-      this.t.tabPanels.forEach((el,index)=>{
-        el.setAttribute('t4-id',index)
-      })
-      return Array.from(document.querySelectorAll(`[t4-control="${this.t.name}"][t4-role="tab"]`))
-    }else{
-      this.t.tabPanels.forEach(el => {
-        if(!el.getAttribute('t4-id')){
-          console.log(el,'請幫我設定id！！');
+    const { t } = this;
+    const tabs = Array.from(document.querySelectorAll(`[t4-control="${t.name}"][t4-role="tab"]`));
+    // 防呆
+    if (t.display === "normal" && t.tabGroup === "true") {
+      // 是頁籤且是群組 判斷數量是否相符
+      if (t.tabPanels.length !== tabs.length) {
+        console.warn('按鈕與內容數量不同喔', t.tabPanels, tabs);
+      }
+    }
+    if (t.tabGroup === "true") {
+      // 流水號
+      t.tabPanels.forEach((el, index) => el.setAttribute('t4-id', index));
+    } else {
+      // 單一頁籤
+      t.tabPanels.forEach(el => {
+        if (!el.getAttribute('t4-id')) {
+          console.warn(el, '請幫我設定id！！');
         }
       });
-      return Array.from(document.querySelectorAll(`[t4-control="${this.t.name}"][t4-role="tab"]`))
+    }
+    return tabs;
+  }
+  // 第二關 id命名提醒
+  #getTabIndex(id) {
+    const { t } = this;
+    // 防呆！
+    const tabPanelsWithId = document.querySelectorAll(`[t4-name="${t.name}"]>[t4-role="tabPanel"][t4-id="${id}"]`);
+    if (tabPanelsWithId.length > 1) {
+      console.warn('有兩個相同id設定', tabPanelsWithId);
+    }
+
+    // 取得頁籤本人
+    const tabPanel = tabPanelsWithId[0];
+
+    if (tabPanel) {
+      const tabIndex = t.tabPanels.indexOf(tabPanel);
+      return tabIndex;
+    } else {
+      console.warn(`找不到t4-id為${id}的頁籤`);
+      return 0;
     }
   }
-  #getTabIndex(id){
-    const tabPanel = document.querySelector(`[t4-name="${this.t.name}"]>[t4-role="tabPanel"][t4-id="${id}"]`)
-    const tabIndex = this.t.tabPanels.indexOf(tabPanel)
-    return tabIndex
-  }
-  #getDefaultPage(){
-    let page
-    if(this.t.url){
-      console.log('抓網址？？？？');
-    }else{
-      page = this.t.defaultPage
-    }
-    return page
-  }
-  /**
-   * 動畫設定
-   */
-  // 消失動畫
-  #animationHide(index) {
-    // 動畫 消失 動畫 出現 搭配 settimeout 使用
-    this.t.tabPanels[index].classList.add('hide')
-    switch (this.t.display) {
-      case 'fade':
-        this.t.tabPanels[index].style['display'] = 'none'
-        this.t.tabPanels[index].style['opacity'] = '0'
-        break
-      case 'slide':
-        this.t.tabPanels[index].style['display'] = 'none'
-        this.t.tabPanels[index].style['opacity'] = '0'
-        this.t.tabPanels[index].style['max-height'] = 'unset'
-        break
-      case 'slide-swiper':
-        this.t.tabPanels[index].style['display'] = 'none'
-        break
-      default:
-        this.t.tabPanels[index].style['display'] = 'none'
-        break
+
+  #addUrl(panel) {
+    const { t } = this;
+
+    if (t.recordUrl === 'true') {
+      const params = new URLSearchParams(document.location.search);
+      params.set(t.name, panel);
+      console.log(t.name, panel);
+      const newUrl = `${window.location.pathname}?${params.toString()}`;
+
+      // 使用 replaceState 修改瀏覽器歷史記錄
+      history.replaceState({ t4Id: panel }, '', newUrl);
     }
   }
-  // 出現動畫
-  #animationShow(index) {
-    const {duration,timing,delay} = this.t.transition
-    const tabPanel = this.t.tabPanels[index]
-    tabPanel.classList.remove('hide')
-    tabPanel.style['transition-duration'] = duration + 'ms'
-    tabPanel.style['transition-timing-function'] = timing
-    tabPanel.style['transition-delay'] = delay + 'ms'
-    switch (this.t.display) {
-      case 'fade':
-        this.t.tabPanels[index].style['display'] = 'block'
-        this.t.tabPanels[index].style['opacity'] = '0'
-        let timer = setTimeout(() => {
-          clearInterval(timer)
-          this.t.tabPanels[index].style['opacity'] = '1'
-        }, 100)
-        break
-      case 'slide':
-        this.t.tabPanels[index].style['display'] = 'block'
-        const clientHeight = this.t.tabPanels[index].offsetHeight
-        this.t.tabPanels[index].style['opacity'] = '1'
-        this.t.tabPanels[index].style['max-height'] = '0'
-        timer = setTimeout(() => {
-          clearInterval(timer)
-          this.t.tabPanels[index].style['max-height'] = clientHeight + 'px'
-        }, 100)
-        break
-      case 'slide-swiper':
-        this.t.tabPanels[index].style['display'] = 'block'
-        console.log(this.t.display, '還沒做好啦!!!!')
-        break
-      default:
-        this.t.tabPanels[index].style['display'] = 'block'
-        console.log(this.t.display, '沒有這個效果請自己想辦法!!!!')
-        break
-    }
-    // this.t.tabPanels[el].hidden = false
-    // 動畫 消失 動畫 出現 搭配 settimeout 使用
-  }
-  /**
-   * 錨點設定
-   */
+
+  // 執行函式
   // 移動至指定位置
   #eventAnchor() {
     const gap = parseInt(this.t.gap, 10)
@@ -186,56 +155,44 @@ class Tab4 extends HTMLElement {
     })
   }
   // 步驟狀態
-  #step(id) {
-    let current = parseInt(id, 10) + 1
+  #step(val) {
+    let current = parseInt(val, 10) + 1
     this.t.step.textContent = `${current}`
     this.t.step.setAttribute('now-page', current)
   }
   // next 按鈕狀態
   #btnNextState(newPage) {
-    const next = document.querySelectorAll(`[t4-role="next"][t4-control="${this.t.name}"]`)
-    next.forEach((btn, i) => {
-      if (this.t.tabPanels.length == 1) {
-        // 只有一頁
-        btn.setAttribute('disabled', '')
+    const next = document.querySelectorAll(`[t4-role="next"][t4-control="${this.t.name}"]`);
+
+    const isSinglePage = this.t.tabPanels.length === 1;
+    const isLastPage = newPage === this.t.tabPanels.length - 1;
+
+    next.forEach((btn) => {
+      if (isSinglePage || isLastPage) {
+        btn.setAttribute('disabled', '');
       } else {
-        if (newPage == this.t.tabPanels.length - 1) {
-          // 最後頁
-          btn.setAttribute('disabled', '')
-        } else if (newPage == 0) {
-          // 第一頁
-          btn.removeAttribute('disabled')
-        } else {
-          // 其他頁
-          btn.removeAttribute('disabled')
-        }
-      }      
-    })
+        btn.removeAttribute('disabled');
+      }
+    });
   }
   // prev 按鈕狀態
   #btnPrevState(newPage) {
-    const prev = document.querySelectorAll(`[t4-role="prev"][t4-control="${this.t.name}"]`)
-    prev.forEach((btn, i) => {
-      if (this.t.tabPanels.length == 1) {
-        // 只有一頁
-        btn.setAttribute('disabled', '')
+    const prev = document.querySelectorAll(`[t4-role="prev"][t4-control="${this.t.name}"]`);
+
+    const isSinglePage = this.t.tabPanels.length === 1;
+    const isFirstPage = newPage === 0;
+
+    prev.forEach((btn) => {
+      if (isSinglePage || isFirstPage) {
+        btn.setAttribute('disabled', '');
       } else {
-        if (newPage == this.t.tabPanels.length - 1) {
-          // 最後頁
-          btn.removeAttribute('disabled')
-        } else if (newPage == 0) {
-          // 第一頁
-          btn.setAttribute('disabled', '')
-        } else {
-          // 其他頁
-          btn.removeAttribute('disabled')
-        }
+        btn.removeAttribute('disabled');
       }
-    })
+    });
   }
   // 頁籤狀態
-  #tabState(newPage,controlId) {
-    if(this.t.tabGroup === "true"){
+  #tabState(newPage, tabId) {
+    if (this.t.tabGroup === "true") {
       this.t.tabs.forEach((tab, i) => {
         if (i == newPage) {
           tab.setAttribute('aria-selected', true)
@@ -243,13 +200,19 @@ class Tab4 extends HTMLElement {
           tab.setAttribute('aria-selected', false)
         }
       })
-    }else{
+    } else {
       // 自訂 id 的話...
-      console.log(controlId);
+      this.t.tabs.forEach((tab, i) => {
+        if (tab.getAttribute('t4-id') === tabId) {
+          tab.setAttribute('aria-selected', true)
+        } else {
+          tab.setAttribute('aria-selected', false)
+        }
+      })
     }
   }
-  // 判斷元件並執行
-  #isTrue(fun, val) {
+  // 第三關各種元件判斷 及 執行
+  #isTrue(fun, val, val2) {
     switch (fun) {
       case 'step':
         if (isElement(this.t.step)) {
@@ -258,91 +221,147 @@ class Tab4 extends HTMLElement {
         break
       case 'eventAnchor':
         if (this.t.anchor) {
-          this.#eventAnchor(val)
+          this.#eventAnchor()
         }
         break
       case 'tabState':
         // 流程沒有按鈕 客制的話....
         if (this.t.type == 'normal') {
           // 頁籤按鈕狀態
-          this.#tabState(val)
+          this.#tabState(val, val2)
         }
         break
       case 'btnState':
         this.#btnNextState(val)
         this.#btnPrevState(val)
         break
+      case 'tabUrl':
+        if (this.t.recordUrl === 'true') {
+          console.warn('tabUrl功能製作中！');
+          this.#addUrl(val)
+        }
+        break
       default:
-        console.log('請增加判斷，謝謝')
+        console.warn('請增加判斷，謝謝')
         break
     }
   }
-  #stateChange(tabIndex){
-    // 通知狀態改變
-    this.#isTrue("step",tabIndex)
-    this.#isTrue("btnState",tabIndex)
-    this.#isTrue("tabState",tabIndex)
+  // 消失動畫
+  #animationHide(index) {
+    const { t } = this;
+    // 動畫 消失 動畫 出現 搭配 settimeout 使用
+    t.tabPanels[index].classList.add('hide');
+
+    switch (t.display) {
+      case 'fade':
+      case 'slide':
+        t.tabPanels[index].style.cssText = 'display: none; opacity: 0; max-height: unset;';
+        break;
+      case 'slide-swiper':
+        t.tabPanels[index].style.display = 'none';
+        break;
+      default:
+        t.tabPanels[index].style.display = 'none';
+        break;
+    }
+  }
+  // 出現動畫
+  #animationShow(index) {
+    const { duration, timing, delay } = this.t.transition;
+    const tabPanel = this.t.tabPanels[index];
+    let timer;
+
+    tabPanel.classList.remove('hide');
+    tabPanel.style.transition = `opacity ${duration}ms ${timing} ${delay}ms`;
+    tabPanel.style.display = 'block';
+
+    switch (this.t.display) {
+      case 'fade':
+        tabPanel.style.opacity = '0';
+        timer = setTimeout(() => {
+          clearInterval(timer);
+          tabPanel.style.opacity = '1';
+        }, 100);
+        break;
+      case 'slide':
+        const clientHeight = tabPanel.offsetHeight;
+        tabPanel.style.opacity = '1';
+        tabPanel.style.maxHeight = '0';
+        timer = setTimeout(() => {
+          clearInterval(timer);
+          tabPanel.style.maxHeight = clientHeight + 'px';
+        }, 100);
+        break;
+      case 'slide-swiper':
+        console.warn(this.t.display, '還沒做好啦!!!!');
+        break;
+      default:
+        console.warn(this.t.display, '沒有這個效果請自己想辦法!!!!');
+        break;
+    }
+  }
+  // 狀態
+  #stateChange(tabId) {
+    const newTabIndex = this.#getTabIndex(tabId)
+    // 通知狀態改變 
+    this.#isTrue("step", newTabIndex)
+    this.#isTrue("btnState", newTabIndex)
+    this.#isTrue("tabState", newTabIndex, tabId)
+    this.#isTrue("tabUrl", tabId)
     // 觸發自定義事件
     this.emit('change')
   }
   //  ------------- 我是分隔線呦 -------------
   // 頁籤切換 
   tabClick(clickedTab) {
-    const _this = this
-    let newTabIndex = 0
-    if(_this.t.tabGroup === "true"){
-      newTabIndex = _this.t.tabs.indexOf(clickedTab);
-    }else{
-      newTabIndex = _this.#getTabIndex(clickedTab.getAttribute('t4-id'))
-    }
+    const { t } = this;
+    const newTabId = t.tabGroup === "true" ? t.tabs.indexOf(clickedTab) : clickedTab.getAttribute('t4-id');
+
     // 通知頁籤切換
-    _this.setActiveTab(newTabIndex);
+    this.setActiveTab(newTabId);
+
+    // 錨點滑動動畫
     let timer
     clearTimeout(timer)
     timer = setTimeout(() => {
-      _this.#isTrue("eventAnchor",newTabIndex)
-    }, _this.t.transition.duration);
+      this.#isTrue("eventAnchor")
+    }, t.transition.duration);
   }
   // 外部呼叫方法 $0.setActiveTab(0)
   setActiveTab(id) {
-    const defaultID = id === '' ? this.t.tabPanels[0].getAttribute('t4-id') : id
-    const newTabIndex = this.#getTabIndex(defaultID)
-    this.t.activeTab = defaultID
-    this.setAttribute('t4-active', defaultID)
-    this.t.tabPanels.forEach((panel, i) => {
-      if (i === newTabIndex) {
-        this.#animationShow(i)
-      } else {
-        this.#animationHide(i)
-      }
-    })
+    const { t } = this;
+    const defaultID = id === '' ? t.tabPanels[0].getAttribute('t4-id') : id;
+
+    t.activeTab = defaultID;
+    this.setAttribute('t4-active', defaultID);
+
+    const newTabIndex = this.#getTabIndex(defaultID);
+
+    t.tabPanels.forEach((panel, i) => {
+      i === newTabIndex ? this.#animationShow(i) : this.#animationHide(i);
+    });
   }
-  // 按鈕切換
   // 外部呼叫方法 $0.goNext()
   goNext() {
-    const nextPage = Math.min(this.t.tabPanels.length - 1, this.t.activeTabIndex + 1);
-    this.setActiveTab(nextPage)
+    const tabIndex = this.#getTabIndex(this.t.activeTab)
+    const nextPage = Math.min(this.t.tabPanels.length - 1, tabIndex + 1);
+    const nextPageId = this.t.tabPanels[nextPage].getAttribute('t4-id')
+    this.setActiveTab(nextPageId)
   }
   // 外部呼叫方法 $0.goPrev()
   goPrev() {
-    const prevPage = Math.max(0, this.t.activeTabIndex - 1);
-    this.setActiveTab(prevPage)
-  }
-  // 外部呼叫方法 $0.t4Update()
-  t4Update() {
-    const nowPage = this.getAttribute('t4-active') ?? this.t.activeTab
-    this.setActiveTab(nowPage)
-    console.log(`你現在在頁面${nowPage}`);
-
-    this.emit('afterUpdate')
+    const tabIndex = this.#getTabIndex(this.t.activeTab)
+    const prevPage = Math.max(0, tabIndex - 1);
+    const prevPageId = this.t.tabPanels[prevPage].getAttribute('t4-id')
+    this.setActiveTab(prevPageId)
   }
 }
 
 // 綁定點擊事件
-function changeEvent(){
+function changeEvent() {
   const targetElements = document.querySelectorAll('[t4-control]');
 
-  document.addEventListener('click', function(event) {
+  document.addEventListener('click', function (event) {
     let isTarget = false;
     for (const targetElement of targetElements) {
       if (targetElement.contains(event.target) || event.target.closest('[t4-control]') === targetElement) {
@@ -354,9 +373,9 @@ function changeEvent(){
       // event.target 是目標元素或其子層
       const tabControl = event.target.closest('[t4-control]')
       const tabElName = tabControl.getAttribute('t4-control')
-      const tabEls = document.querySelectorAll(`tab-el[t4-name="${tabElName}"]`) 
+      const tabEls = document.querySelectorAll(`tab-el[t4-name="${tabElName}"]`)
       const role = tabControl.getAttribute('t4-role')
-      tabEls.forEach(el=>{
+      tabEls.forEach(el => {
         switch (role) {
           case 'tab':
             el.tabClick(tabControl)
@@ -368,7 +387,7 @@ function changeEvent(){
             el.goPrev(tabControl)
             break
           default:
-            console.log('你是誰？？',tabControl);
+            console.warn('你是誰？？', tabControl);
             break
         }
       })

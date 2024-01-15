@@ -9,9 +9,10 @@ export default {
     // 滑動扣除高度
     anchorGap: 0,
     tabGroup: 'true',
+    recordUrl: 'false',
     // 動畫設定
     transition: {
-      duration: 500,
+      duration: 1000,
       timing: 'ease',
       delay: 0,
     },
