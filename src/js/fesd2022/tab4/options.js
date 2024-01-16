@@ -12,7 +12,7 @@ export default {
     recordUrl: 'false',
     // 動畫設定
     transition: {
-      duration: 1000,
+      duration: 300,
       timing: 'ease',
       delay: 0,
     },

@@ -146,7 +146,7 @@ html(lang="en")
               .photo-box(video-target video-id="754478851" video-autoplay='on' video-player-type="onBox" video-type="vimeo" video-button='.video-btn')
                 img(alt="" src="./assets/img/D2.png")
                 .video-btn
-              
+
       section.section4 
         .container
           .wrap
@@ -182,8 +182,8 @@ html(lang="en")
                   span.step-show(t4-control='s4_tab_a') 
           .wrap
             h3 流程
-            .content 
-              tab-el(t4-name='s4_tab_b' t4-type='process' t4-url='true')
+            .content.swiper 
+              tab-el(t4-name='s4_tab_b' t4-type='process' t4-url='true' t4-display='swiper')
                 for data in contentData
                   .tab-panel(t4-role="tabPanel") 
                     h2=data.target
@@ -212,7 +212,7 @@ html(lang="en")
             .item(t4-control='s5_tab' t4-role="next")
               svg(xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6")
                 path(stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5")
-          tab-el(t4-name='s5_tab' )
+          tab-el(t4-name='s5_tab' t4-display='swiper')
             for data in contentData
               .tab-panel(t4-role="tabPanel") 
                 h2=data.target

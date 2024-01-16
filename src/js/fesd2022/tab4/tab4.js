@@ -60,10 +60,11 @@ class Tab4 extends HTMLElement {
   }
 
   #init() {
-    // 初始化 設定預設頁面
+    // 初始化設定
     this.t.activeTab = this.t.defaultPage
-    // 設定防呆
-    this.classList.add('t4-initialize')
+    if (this.t.display === 'swiper') {
+      this.#createSwiper();
+    }
     if (this.t.recordUrl) {
       const params = new URLSearchParams(document.location.search);
       const val = params.get(this.t.name);
@@ -78,6 +79,8 @@ class Tab4 extends HTMLElement {
       // 沒有啟用網址紀錄功能
       this.setActiveTab(this.t.activeTab);
     }
+    // 設定防呆
+    this.classList.add('t4-initialize')
   }
   // 第一關 判斷數量以及id設定
   #tabSet() {
@@ -106,15 +109,16 @@ class Tab4 extends HTMLElement {
   // 第二關 id命名提醒
   #getTabIndex(id) {
     const { t } = this;
+    const tabPanelsWithId = t.tabPanels.filter(panel =>
+      panel.getAttribute('t4-id') === id
+    )
     // 防呆！
-    const tabPanelsWithId = document.querySelectorAll(`[t4-name="${t.name}"]>[t4-role="tabPanel"][t4-id="${id}"]`);
     if (tabPanelsWithId.length > 1) {
       console.warn('有兩個相同id設定', tabPanelsWithId);
     }
 
     // 取得頁籤本人
     const tabPanel = tabPanelsWithId[0];
-
     if (tabPanel) {
       const tabIndex = t.tabPanels.indexOf(tabPanel);
       return tabIndex;
@@ -124,13 +128,46 @@ class Tab4 extends HTMLElement {
     }
   }
 
+  #createSwiper() {
+    const swiperContainer = document.createElement('div');
+    swiperContainer.classList.add('swiper-container');
+
+    const swiperWrapper = document.createElement('div');
+    swiperWrapper.classList.add('swiper-wrapper');
+
+    this.t.tabPanels.forEach((slide) => {
+      swiperWrapper.appendChild(slide.cloneNode(true));
+    });
+
+    // 更新 t.tabPanels
+    this.t.tabPanels = [...swiperWrapper.children]
+
+    swiperContainer.appendChild(swiperWrapper);
+    this.innerHTML = ''; // 清空原有的內容
+    this.appendChild(swiperContainer);
+    // 執行 Swiper 效果的相關初始化
+    this.#initSwiper()
+  }
+  #initSwiper() {
+    const sContainer = this.querySelector('.swiper-container');
+    const sWrapper = this.querySelector('.swiper-wrapper');
+    const tabPanels = this.t.tabPanels;
+
+    // 設定容器和 wrapper 的樣式
+    sContainer.style.overflow = 'hidden';
+    sWrapper.style.display = 'flex';
+
+    // 設定 wrapper 的寬度
+    const totalWidth = tabPanels.length * 100 + '%';
+    sWrapper.style.width = totalWidth;
+  }
+
   #addUrl(panel) {
     const { t } = this;
 
     if (t.recordUrl === 'true') {
       const params = new URLSearchParams(document.location.search);
       params.set(t.name, panel);
-      console.log(t.name, panel);
       const newUrl = `${window.location.pathname}?${params.toString()}`;
 
       // 使用 replaceState 修改瀏覽器歷史記錄
@@ -237,7 +274,6 @@ class Tab4 extends HTMLElement {
         break
       case 'tabUrl':
         if (this.t.recordUrl === 'true') {
-          console.warn('tabUrl功能製作中！');
           this.#addUrl(val)
         }
         break
@@ -249,19 +285,21 @@ class Tab4 extends HTMLElement {
   // 消失動畫
   #animationHide(index) {
     const { t } = this;
+    const { duration, timing, delay } = this.t.transition;
+    const tabPanel = t.tabPanels[index];
     // 動畫 消失 動畫 出現 搭配 settimeout 使用
-    t.tabPanels[index].classList.add('hide');
-
+    tabPanel.classList.add('hide');
     switch (t.display) {
       case 'fade':
-      case 'slide':
-        t.tabPanels[index].style.cssText = 'display: none; opacity: 0; max-height: unset;';
+        tabPanel.style.cssText = 'display: none; opacity: 0;';
         break;
-      case 'slide-swiper':
-        t.tabPanels[index].style.display = 'none';
+      case 'slide':
+        tabPanel.style.cssText = 'display: none; opacity: 0; max-height: unset;';
+        break;
+      case 'swiper':
         break;
       default:
-        t.tabPanels[index].style.display = 'none';
+        tabPanel.style.display = 'none';
         break;
     }
   }
@@ -279,21 +317,28 @@ class Tab4 extends HTMLElement {
       case 'fade':
         tabPanel.style.opacity = '0';
         timer = setTimeout(() => {
-          clearInterval(timer);
+          clearTimeout(timer);
           tabPanel.style.opacity = '1';
         }, 100);
         break;
       case 'slide':
+        console.warn(this.t.display, '抱歉，好像壞掉了...');
         const clientHeight = tabPanel.offsetHeight;
         tabPanel.style.opacity = '1';
         tabPanel.style.maxHeight = '0';
         timer = setTimeout(() => {
-          clearInterval(timer);
+          clearTimeout(timer);
           tabPanel.style.maxHeight = clientHeight + 'px';
         }, 100);
         break;
-      case 'slide-swiper':
-        console.warn(this.t.display, '還沒做好啦!!!!');
+      case 'swiper':
+        tabPanel.style.opacity = '1';
+        const sWrapper = this.querySelector('.swiper-wrapper');
+        const slideWidth = this.t.tabPanels[0].offsetWidth;
+        const translateValue = -index * slideWidth;
+
+        sWrapper.style.transition = `transform ${duration}ms ${timing} ${delay}ms`;
+        sWrapper.style.transform = `translateX(${translateValue}px)`;
         break;
       default:
         console.warn(this.t.display, '沒有這個效果請自己想辦法!!!!');
@@ -315,7 +360,7 @@ class Tab4 extends HTMLElement {
   // 頁籤切換 
   tabClick(clickedTab) {
     const { t } = this;
-    const newTabId = t.tabGroup === "true" ? t.tabs.indexOf(clickedTab) : clickedTab.getAttribute('t4-id');
+    const newTabId = t.tabGroup === "true" ? String(t.tabs.indexOf(clickedTab)) : clickedTab.getAttribute('t4-id');
 
     // 通知頁籤切換
     this.setActiveTab(newTabId);
@@ -331,7 +376,6 @@ class Tab4 extends HTMLElement {
   setActiveTab(id) {
     const { t } = this;
     const defaultID = id === '' ? t.tabPanels[0].getAttribute('t4-id') : id;
-
     t.activeTab = defaultID;
     this.setAttribute('t4-active', defaultID);
 
